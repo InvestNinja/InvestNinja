@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B4E3BC34-7BCF-410F-873F-21BB320794A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84DAA818-6A3C-433A-AD56-37DE26DEFAE5}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InvestNinja.Core", "src\InvestNinja.Core\InvestNinja.Core.xproj", "{763D1E85-A790-46EC-897A-7D4D1B7B7F48}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "InvestNinja.Core.Test", "src\InvestNinja.Core.Test\InvestNinja.Core.Test.xproj", "{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{763D1E85-A790-46EC-897A-7D4D1B7B7F48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{763D1E85-A790-46EC-897A-7D4D1B7B7F48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{763D1E85-A790-46EC-897A-7D4D1B7B7F48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{763D1E85-A790-46EC-897A-7D4D1B7B7F48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{763D1E85-A790-46EC-897A-7D4D1B7B7F48} = {B4E3BC34-7BCF-410F-873F-21BB320794A5}
+		{AB6320F8-B7F5-4E65-9006-610EA8B3BDD6} = {B4E3BC34-7BCF-410F-873F-21BB320794A5}
+	EndGlobalSection
+EndGlobal
