@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace InvestNinja.Core.Domain
 {
     public class Indice
     {
-        public Indice()
+        public Indice(string codigo, string Descricao, double valorCotaInicial)
         {
             Itens = new List<ItemIndice>();
+            this.Codigo = codigo;
+            this.Descricao = Descricao;
+            this.ValorCotaInicial = valorCotaInicial;
         }
 
         public Indice(string codigo, string Descricao, double valorCotaInicial, DateTime dataCota, double valorMovimentacao, double saldo)
@@ -20,13 +24,15 @@ namespace InvestNinja.Core.Domain
             AddPrimeiroItem(dataCota, valorCotaInicial, saldo);
         }
 
-        public string Codigo { get; set; }
+        public string Codigo { get; private set; }
 
-        public string Descricao { get; set; }
+        public string Descricao { get; private set; }
 
-        public double ValorCotaInicial { get; set; }
+        public double ValorCotaInicial { get; private set; }
 
-        public IList<ItemIndice> Itens { get; set; }
+        private IList<ItemIndice> Itens { get; set; }
+
+        public IList<ItemIndice> GetItens() => Itens; //Clonar o objeto Itens, pois ele não pode ser alterado diretamente
 
         private void AddPrimeiroItem(DateTime dataCota, double valorMovimentacao, double saldo)
         {
