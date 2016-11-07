@@ -7,6 +7,11 @@ namespace InvestNinja.Core.Domain
 {
     public class Indice
     {
+        public Indice()
+        {
+            Itens = new List<ItemIndice>();
+        }
+
         public Indice(string codigo, string Descricao, double valorCotaInicial)
         {
             Itens = new List<ItemIndice>();
@@ -24,11 +29,11 @@ namespace InvestNinja.Core.Domain
             AddPrimeiroItem(dataCota, valorCotaInicial, saldo);
         }
 
-        public string Codigo { get; private set; }
+        public string Codigo { get; set; }
 
-        public string Descricao { get; private set; }
+        public string Descricao { get; set; }
 
-        public double ValorCotaInicial { get; private set; }
+        public double ValorCotaInicial { get; set; }
 
         private IList<ItemIndice> Itens { get; set; }
 
@@ -68,16 +73,18 @@ namespace InvestNinja.Core.Domain
             Itens.Add(item);
         }
 
-        public double ValorCotaAtual => this.Itens.Last().ValorCota;
+        private ItemIndice Last => this.Itens.LastOrDefault() == null ? new ItemIndice() : this.Itens.Last();
 
-        public double VariacaoCotaPercentual => this.Itens.Last().VariacaoCotaPercentual;
+        public double ValorCotaAtual => Last.ValorCota;
 
-        public double VariacaoFinanceira => this.Itens.Last().VariacaoFinanceira;
+        public double VariacaoCotaPercentual => Last.VariacaoCotaPercentual;
+
+        public double VariacaoFinanceira => Last.VariacaoFinanceira;
 
         public double TotalAplicado => this.Itens.Sum(it => it.ValorMovimentacao);
 
-        public double QtdCotasAtual => this.Itens.Last().QtdCotasAtual;
+        public double QtdCotasAtual => Last.QtdCotasAtual;
 
-        public double Saldo => this.Itens.Last().Saldo;
+        public double Saldo => Last.Saldo;
     }
 }
