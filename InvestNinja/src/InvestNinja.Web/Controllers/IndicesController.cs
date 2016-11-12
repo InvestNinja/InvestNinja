@@ -1,4 +1,6 @@
-﻿using InvestNinja.Core.Domain;
+﻿using InvestNinja.Core.Data;
+using InvestNinja.Core.Domain;
+using InvestNinja.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,27 +15,27 @@ namespace InvestNinja.Web.Controllers
         [HttpGet]
         public IList<Indice> GetAll()
         {
-            //buscar Índice pelo Código
-            return new List<Indice>() { new Indice("INinja", "Ninja", 10.0, DateTime.Now, 1000.00, 1000.00),
-                new Indice("IBOV", "Bovespa", 100.0, DateTime.Now, 100.00, 100.00)};
+            IRepository<Indice> repository = new MongoRepository<Indice>();
+            return repository.GetAll().ToList();
         }
 
         [HttpGet("{codigo}")]
-        public Indice Get()
+        public Indice Get(string codigo)
         {
-            //buscar Índice pelo Código
-            return new Indice("INinja", "Ninja", 10.0, DateTime.Now, 1000.00, 1000.00);
+            IRepository<Indice> repository = new MongoRepository<Indice>();
+            return repository.GetById(codigo);
         }
 
         [HttpPost]
-        public void Post([FromBody]Indice indice)
+        public void Post([FromBody]Indice indiceDTO)
         {
-            //salvar o Índice
-            indice.ToString();
+            Indice indice = new Indice(indiceDTO.Codigo, indiceDTO.Descricao, indiceDTO.ValorCotaInicial, DateTime.Now, 1000.00, 1000.00);
+            IRepository<Indice> repository = new MongoRepository<Indice>();
+            repository.Insert(indice);
         }
 
         [HttpPost("{codigo}")]
-        public void Post([FromBody]ItemIndice itemIndice)
+        public void Post([FromBody]ItemIndice itemIndice, string codigo)
         {
             //Trocar linha abaixo para buscar o Indice pelo Código
             Indice indice = new Indice("INinja", "Ninja", 10.0, DateTime.Now, 1000.00, 1000.00);

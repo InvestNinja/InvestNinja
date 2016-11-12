@@ -1,11 +1,12 @@
-﻿using System;
+﻿using InvestNinja.Core.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace InvestNinja.Core.Domain
 {
-    public class Indice
+    public class Indice : IEntity
     {
         public Indice()
         {
@@ -15,6 +16,7 @@ namespace InvestNinja.Core.Domain
         public Indice(string codigo, string Descricao, double valorCotaInicial)
         {
             Itens = new List<ItemIndice>();
+            this._id = codigo;
             this.Codigo = codigo;
             this.Descricao = Descricao;
             this.ValorCotaInicial = valorCotaInicial;
@@ -23,11 +25,14 @@ namespace InvestNinja.Core.Domain
         public Indice(string codigo, string Descricao, double valorCotaInicial, DateTime dataCota, double valorMovimentacao, double saldo)
         {
             Itens = new List<ItemIndice>();
+            this._id = codigo;
             this.Codigo = codigo;
             this.Descricao = Descricao;
             this.ValorCotaInicial = valorCotaInicial;
             AddPrimeiroItem(dataCota, valorCotaInicial, saldo);
         }
+
+        public string _id { get; set; }
 
         public string Codigo { get; set; }
 
