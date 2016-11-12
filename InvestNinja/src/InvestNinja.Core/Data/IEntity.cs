@@ -7,6 +7,5 @@ namespace InvestNinja.Core.Data
 {
     public interface IEntity
     {
-        string _id { get; set; }
     }
 }

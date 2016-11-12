@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Data;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,36 +14,23 @@ namespace InvestNinja.Core.Domain
             Itens = new List<ItemIndice>();
         }
 
-        public Indice(string codigo, string Descricao, double valorCotaInicial)
+        public Indice(IndiceInitializer initializer)
         {
             Itens = new List<ItemIndice>();
-            this._id = codigo;
-            this.Codigo = codigo;
-            this.Descricao = Descricao;
-            this.ValorCotaInicial = valorCotaInicial;
+            this.Codigo = initializer.Codigo;
+            this.Descricao = initializer.Descricao;
+            this.ValorCotaInicial = initializer.ValorCotaInicial;
+            AddPrimeiroItem(initializer.DataCota, initializer.ValorCotaInicial, initializer.Saldo);
         }
 
-        public Indice(string codigo, string Descricao, double valorCotaInicial, DateTime dataCota, double valorMovimentacao, double saldo)
-        {
-            Itens = new List<ItemIndice>();
-            this._id = codigo;
-            this.Codigo = codigo;
-            this.Descricao = Descricao;
-            this.ValorCotaInicial = valorCotaInicial;
-            AddPrimeiroItem(dataCota, valorCotaInicial, saldo);
-        }
-
-        public string _id { get; set; }
-
+        [BsonId]
         public string Codigo { get; set; }
 
         public string Descricao { get; set; }
 
         public double ValorCotaInicial { get; set; }
 
-        private IList<ItemIndice> Itens { get; set; }
-
-        public IList<ItemIndice> GetItens() => Itens; //Clonar o objeto Itens, pois ele não pode ser alterado diretamente
+        public IList<ItemIndice> Itens { get; set; }
 
         private void AddPrimeiroItem(DateTime dataCota, double valorMovimentacao, double saldo)
         {

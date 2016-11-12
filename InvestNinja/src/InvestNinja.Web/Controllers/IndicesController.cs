@@ -27,9 +27,9 @@ namespace InvestNinja.Web.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]Indice indiceDTO)
+        public void Post([FromBody]IndiceInitializer indiceInitializer)
         {
-            Indice indice = new Indice(indiceDTO.Codigo, indiceDTO.Descricao, indiceDTO.ValorCotaInicial, DateTime.Now, 1000.00, 1000.00);
+            Indice indice = new Indice(indiceInitializer);
             IRepository<Indice> repository = new MongoRepository<Indice>();
             repository.Insert(indice);
         }
@@ -37,10 +37,10 @@ namespace InvestNinja.Web.Controllers
         [HttpPost("{codigo}")]
         public void Post([FromBody]ItemIndice itemIndice, string codigo)
         {
-            //Trocar linha abaixo para buscar o Indice pelo Código
-            Indice indice = new Indice("INinja", "Ninja", 10.0, DateTime.Now, 1000.00, 1000.00);
-            //Inclusão de um novo item ao Índice
+            IRepository<Indice> repository = new MongoRepository<Indice>();
+            Indice indice = repository.GetById(codigo);
             indice.AddItem(itemIndice.DataCota, itemIndice.ValorMovimentacao, itemIndice.Saldo);
+            repository.Update(indice);
         }
     }
 }
