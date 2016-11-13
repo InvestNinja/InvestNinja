@@ -46,7 +46,7 @@ namespace Tests
         }
 
         [Fact]
-        public void TesteCriacaoDeItemIndiceSemMovimentacao()
+        public void TesteIndiceComAdicaoDeSegundoItemIndiceSemMovimentacao()
         {
             Indice indice = CreateIndice();
             indice.AddItem(DateTime.Now.AddDays(1), 0.0, 1100.0);
@@ -59,7 +59,23 @@ namespace Tests
         }
 
         [Fact]
-        public void TesteCriacaoDeItemIndiceComAplicacao()
+        public void TesteCriacaoDeSegundoItemIndiceSemMovimentacao()
+        {
+            Indice indice = CreateIndice();
+            indice.AddItem(DateTime.Now.AddDays(1), 0.0, 1100.0);
+            ItemIndice item = indice.Itens.LastOrDefault();
+            Assert.Equal(0.0, item.ValorMovimentacao, 2);
+            Assert.Equal(1100.0, item.Saldo, 2);
+            Assert.Equal(10.0, item.QtdCotasAnterior, 2);
+            Assert.Equal(0.0, item.QtdCotasMovimentacao, 2);
+            Assert.Equal(10.0, item.QtdCotasAtual, 2);
+            Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
+            Assert.Equal(100.0, item.VariacaoFinanceira, 2);
+            Assert.Equal(110.0, item.ValorCota, 2);
+        }
+
+        [Fact]
+        public void TesteIndiceComAdicaoDeSegundoItemIndiceComAplicacao()
         {
             Indice indice = CreateIndice();
             indice.AddItem(DateTime.Now.AddDays(1), 100.0, 1200.0);
@@ -72,7 +88,23 @@ namespace Tests
         }
 
         [Fact]
-        public void TesteCriacaoDeItemIndiceComResgate()
+        public void TesteCriacaoDeSegundoItemIndiceComAplicacao()
+        {
+            Indice indice = CreateIndice();
+            indice.AddItem(DateTime.Now.AddDays(1), 100.0, 1200.0);
+            ItemIndice item = indice.Itens.LastOrDefault();
+            Assert.Equal(100.0, item.ValorMovimentacao, 2);
+            Assert.Equal(1200.0, item.Saldo, 2);
+            Assert.Equal(10.0, item.QtdCotasAnterior, 2);
+            Assert.Equal(0.91, item.QtdCotasMovimentacao, 2);
+            Assert.Equal(10.91, item.QtdCotasAtual, 2);
+            Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
+            Assert.Equal(100.0, item.VariacaoFinanceira, 2);
+            Assert.Equal(110.0, item.ValorCota, 2);
+        }
+
+        [Fact]
+        public void TesteIndiceComAdicaoDeSegundoItemIndiceComResgate()
         {
             Indice indice = CreateIndice();
             indice.AddItem(DateTime.Now.AddDays(1), -100.0, 1000.0);
@@ -82,6 +114,22 @@ namespace Tests
             Assert.Equal(900.0, indice.TotalAplicado, 2);
             Assert.Equal(100.0, indice.VariacaoFinanceira, 2);
             Assert.Equal(1.1, indice.VariacaoCotaPercentual, 2);
+        }
+
+        [Fact]
+        public void TesteCriacaoDeSegundoItemIndiceComResgate()
+        {
+            Indice indice = CreateIndice();
+            indice.AddItem(DateTime.Now.AddDays(1), -100.0, 1000.0);
+            ItemIndice item = indice.Itens.LastOrDefault();
+            Assert.Equal(-100.0, item.ValorMovimentacao, 2);
+            Assert.Equal(1000.0, item.Saldo, 2);
+            Assert.Equal(10.0, item.QtdCotasAnterior, 2);
+            Assert.Equal(-0.91, item.QtdCotasMovimentacao, 2);
+            Assert.Equal(9.09, item.QtdCotasAtual, 2);
+            Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
+            Assert.Equal(100.0, item.VariacaoFinanceira, 2);
+            Assert.Equal(110.0, item.ValorCota, 2);
         }
     }
 }
