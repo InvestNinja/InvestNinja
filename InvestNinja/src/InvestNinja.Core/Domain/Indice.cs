@@ -20,7 +20,7 @@ namespace InvestNinja.Core.Domain
             this.Codigo = initializer.Codigo;
             this.Descricao = initializer.Descricao;
             this.ValorCotaInicial = initializer.ValorCotaInicial;
-            AddPrimeiroItem(initializer.DataCota, initializer.ValorCotaInicial, initializer.Saldo);
+            AddPrimeiroItem(initializer.DataCota, initializer.ValorMovimentacao, initializer.Saldo);
         }
 
         [BsonId]
