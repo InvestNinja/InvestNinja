@@ -12,32 +12,25 @@ namespace InvestNinja.Web.Controllers
     [Route("api/[controller]")]
     public class IndicesController : Controller
     {
-        [HttpGet]
-        public IList<Indice> GetAll()
+        IRepository<Indice> repository;
+
+        public IndicesController()
         {
-            IRepository<Indice> repository = new MongoRepository<Indice>();
-            return repository.GetAll().ToList();
+            repository = new MongoRepository<Indice>();
         }
+
+        [HttpGet]
+        public IList<Indice> GetAll() => repository.GetAll().ToList();
 
         [HttpGet("{codigo}")]
-        public Indice Get(string codigo)
-        {
-            IRepository<Indice> repository = new MongoRepository<Indice>();
-            return repository.GetById(codigo);
-        }
+        public Indice Get(string codigo) => repository.GetById(codigo);
 
         [HttpPost]
-        public void Post([FromBody]IndiceInitializer indiceInitializer)
-        {
-            Indice indice = new Indice(indiceInitializer);
-            IRepository<Indice> repository = new MongoRepository<Indice>();
-            repository.Insert(indice);
-        }
+        public void Post([FromBody]IndiceInitializer indiceInitializer) => repository.Insert(new Indice(indiceInitializer));
 
         [HttpPost("{codigo}")]
         public void Post([FromBody]ItemIndice itemIndice, string codigo)
         {
-            IRepository<Indice> repository = new MongoRepository<Indice>();
             Indice indice = repository.GetById(codigo);
             indice.AddItem(itemIndice.DataCota, itemIndice.ValorMovimentacao, itemIndice.Saldo);
             repository.Update(indice);
