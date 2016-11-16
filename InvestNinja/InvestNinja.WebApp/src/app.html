@@ -1,0 +1,19 @@
+﻿<template>
+    <h1>${heading}</h1>
+
+    <form submit.trigger="addIndice()">
+        <input type="text" value.bind="indiceCodigo">
+        <input type="text" value.bind="indiceDescricao">
+        <button type="submit">Add Indice</button>
+    </form>
+
+    <ul>
+        <li repeat.for="indice of indices">
+            <input type="checkbox" checked.bind="indice.done">
+            <span css="text-decoration: ${indice.done ? 'line-through' : 'none'}">
+                ${indice.codigo} - ${indice.descricao} - ${indice.valorCotaInicial}
+            </span>
+            <button click.trigger="removeIndice(indice)">Remove</button>
+        </li>
+    </ul>
+</template>
