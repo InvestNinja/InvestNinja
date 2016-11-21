@@ -2,8 +2,13 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
     "MongoDB.Bson": "2.3.0",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.0",
+    "System.ComponentModel.Primitives": "4.1.0",
+    "InvestNinja.ClassFinder": "1.0.0-*",
+    "Microsoft.Extensions.DependencyInjection": "1.0.0",
+    "System.Linq.Queryable": "4.0.1"
   },
 
   "frameworks": {

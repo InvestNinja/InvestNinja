@@ -17,13 +17,13 @@ namespace InvestNinja.Data
 
         public MongoRepository()
         {
-            client = new MongoClient("");
-            database = client.GetDatabase("");
+            client = new MongoClient("mongodb://tp:salamandra@ds027155.mlab.com:27155/tp-dev");
+            database = client.GetDatabase("tp-dev");
         }
 
         public IEnumerable<T> GetAll() => Collection.Find(new BsonDocument()).ToList();
 
-        public T GetById(string id) => Collection.Find(Builders<T>.Filter.Eq("_id", id)).First();
+        public T GetById(string id) => Collection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefault();
 
         public void Delete(IEnumerable<T> entities) => entities.ToList().ForEach(entity => Delete(entity));
 
