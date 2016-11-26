@@ -14,6 +14,7 @@ namespace InvestNinja.Core.Infrastructure
         public void Register(IServiceCollection collection)
         {
             collection.AddTransient<IFinancialService, FinancialService>();
+            collection.AddTransient<IImpostoRendaService, ImpostoRendaService>();
         }
     }
 }
