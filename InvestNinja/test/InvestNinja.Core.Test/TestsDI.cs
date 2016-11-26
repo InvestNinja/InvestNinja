@@ -12,23 +12,27 @@ namespace InvestNinja.Core.Test
 {
     public class TestsDI
     {
+        private readonly IServiceProvider serviceProvider;
+
+        public TestsDI()
+        {
+            serviceProvider = ContainerRegisterAll.RegisterDependenciesReferenced();
+        }
+
         [Fact]
         public void TestLoader()
         {
-            var bml = new DependencyContextLoader();
-            var ls = bml.GetAssemblies();
-            foreach(var l in ls)
-            {
-                System.Console.Out.WriteLine(l.FullName);
-            }
+            IAssemblyLoader assemblyLoader = new DependencyContextLoader();
+            var listAssemblies = assemblyLoader.GetAssemblies();
+            Assert.Equal(1, listAssemblies.Where(assembly => assembly.ManifestModule.Name == "InvestNinja.Core.dll").Count());
         }
 
         [Fact]
         public void TestDI()
         {
-            var x = ContainerRegisterAll.RegisterDependenciesReferenced();
-            var s = x.GetService<IFinancialService>();
-            Assert.Equal(1061.52, s.CalcularMontante(1000.00, 1.0, 6), 2);
+            var financialService = serviceProvider.GetService<IFinancialService>();
+            Assert.Equal(typeof(FinancialService), financialService.GetType());
+            Assert.Equal(1061.52, financialService.CalcularMontante(1000.00, 1.0, 6), 2);
         }
     }
 }

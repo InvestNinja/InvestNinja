@@ -9,13 +9,6 @@ namespace InvestNinja.Core.Test
 {
     public class TestsIndice
     {
-        //private readonly IRepository<Indice> repository;
-
-        public TestsIndice()
-        {
-            //IRepository<Indice> repository = new MongoRepository<Indice>();
-        }
-
         private Indice CreateIndice() => new Indice(new IndiceInitializer("ITest", "Teste", 100.0, DateTime.Now, 1000.0, 1000.0));
 
         [Fact]
