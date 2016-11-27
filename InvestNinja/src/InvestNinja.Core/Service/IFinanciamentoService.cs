@@ -14,8 +14,8 @@ namespace InvestNinja.Core.Service
 
         double CalcularTotalJurosTabelaSac(double valorFinanciamento, double i, int n);
 
-        List<FinanciamentoParcelaDTO> CalcularFinanciamentoTabelaPriceDetalhado(double valorTotal, double i, int n);
+        IList<FinanciamentoParcelaDTO> CalcularFinanciamentoTabelaPriceDetalhado(double valorTotal, double i, int n);
 
-        List<FinanciamentoParcelaDTO> CalcularFinanciamentoTabelaSacDetalhado(double valorTotal, double i, int n);
+        IList<FinanciamentoParcelaDTO> CalcularFinanciamentoTabelaSacDetalhado(double valorTotal, double i, int n);
     }
 }
