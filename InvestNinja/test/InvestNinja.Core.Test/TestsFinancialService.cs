@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
+using InvestNinja.Core.Infrastructure;
 
 namespace InvestNinja.Core.Test
 {
     public class TestsFinancialService
     {
+        private readonly IServiceProvider serviceProvider;
         private readonly IFinancialService financialService;
 
         public TestsFinancialService()
         {
-            financialService = new FinancialService();
+            serviceProvider = ContainerRegisterAll.RegisterDependenciesReferenced();
+            financialService = serviceProvider.GetService<IFinancialService>();
         }
 
         [Fact]

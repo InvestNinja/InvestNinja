@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using InvestNinja.Core.Infrastructure;
+using InvestNinja.Core.Service;
+using Xunit;
+
+namespace InvestNinja.Core.Test
+{
+    public class TestsFinanciamentoService
+    {
+        private readonly IServiceProvider serviceProvider;
+        private readonly IFinanciamentoService financiamentoService;
+
+        public TestsFinanciamentoService()
+        {
+            serviceProvider = ContainerRegisterAll.RegisterDependenciesReferenced();
+            financiamentoService = serviceProvider.GetService<IFinanciamentoService>();
+        }
+
+        [Fact]
+        public void TestCalcularParcelaTabelaPrice()
+        {
+            Assert.Equal(2224.44, financiamentoService.CalcularParcelaTabelaPrice(100000.00, 0.01, 60), 2);
+            Assert.Equal(2750.40, financiamentoService.CalcularParcelaTabelaPrice(30000.00, 0.015, 12), 2);
+        }
+
+        [Fact]
+        public void TestCalcularTotalJurosTabelaPrice()
+        {
+            Assert.Equal(3004.80, financiamentoService.CalcularTotalJurosTabelaPrice(30000.00, 0.015, 12), 2);
+        }
+
+        [Fact]
+        public void TestCalcularTotalJurosTabelaSac()
+        {
+            Assert.Equal(2708.24, financiamentoService.CalcularTotalJurosTabelaSac(30000.00, 1.5, 12), 2);
+        }
+    }
+}

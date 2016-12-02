@@ -30,7 +30,7 @@ namespace InvestNinja.Core.Service
         }
 
         //os juros são calculados em cada mes, e a diferença para o valor da parcela é a amortização. O ciclo se repete, até o final
-        public double CalcularParcelaTabelaPrice(double valorFinanciamento, double i, int n) => valorFinanciamento / ((Math.Pow(1 + i, n) - 1) / (i * Math.Pow(1 + i, n)));
+        public double CalcularParcelaTabelaPrice(double valorFinanciamento, double i, int n) => valorFinanciamento * ((i * Math.Pow(1 + i, n)) / (Math.Pow(1 + i, n) - 1));
 
         public double CalcularTotalJurosTabelaPrice(double valorFinanciamento, double i, int n)
         {
@@ -39,7 +39,7 @@ namespace InvestNinja.Core.Service
 
         public double CalcularTotalJurosTabelaSac(double valorFinanciamento, double i, int n)
         {
-            double valorJuros = 0;            double saldoDevedor = valorFinanciamento;            for (int j = 1; j <= n; j++)            {                valorJuros += saldoDevedor * i;                saldoDevedor = saldoDevedor - (valorFinanciamento / n);            }            return valorJuros;
+            throw new NotImplementedException();
         }
     }
 }
