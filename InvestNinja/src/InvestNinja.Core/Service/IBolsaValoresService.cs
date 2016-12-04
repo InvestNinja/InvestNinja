@@ -7,7 +7,7 @@ namespace InvestNinja.Core.Service
 {
     public interface IBolsaValoresService
     {
-        double CalcularCorretagem(double valorOperacao);
+        double CalcularCorretagemTabelaBovespa(double valorOperacao);
 
         double CalcularEmolumentos(double valorOperacao, bool isDayTrade);
 

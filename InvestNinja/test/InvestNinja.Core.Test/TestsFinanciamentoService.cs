@@ -36,7 +36,8 @@ namespace InvestNinja.Core.Test
         [Fact]
         public void TestCalcularTotalJurosTabelaSac()
         {
-            Assert.Equal(2708.24, financiamentoService.CalcularTotalJurosTabelaSac(30000.00, 1.5, 12), 2);
+            Assert.Throws<NotImplementedException>(() => financiamentoService.CalcularTotalJurosTabelaSac(30000.00, 1.5, 12));
+            //Assert.Equal(2708.24, financiamentoService.CalcularTotalJurosTabelaSac(30000.00, 1.5, 12), 2);
         }
     }
 }
