@@ -2,7 +2,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace InvestNinja.Core.Domain
@@ -20,7 +19,7 @@ namespace InvestNinja.Core.Domain
             this.Codigo = initializer.Codigo;
             this.Descricao = initializer.Descricao;
             this.ValorCotaInicial = initializer.ValorCotaInicial;
-            AddPrimeiroItem(initializer.DataCota, initializer.ValorMovimentacao, initializer.Saldo);
+            AddPrimeiroItem(initializer.DataCota);
         }
 
         [BsonId]
@@ -32,16 +31,11 @@ namespace InvestNinja.Core.Domain
 
         public IList<ItemIndice> Itens { get; set; }
 
-        private void AddPrimeiroItem(DateTime dataCota, double valorMovimentacao, double saldo)
+        private void AddPrimeiroItem(DateTime dataCota)
         {
             ItemIndice item = new ItemIndice()
             {
                 DataCota = dataCota,
-                ValorMovimentacao = valorMovimentacao,
-                Saldo = saldo,
-                QtdCotasAnterior = 0.0,
-                QtdCotasMovimentacao = valorMovimentacao / this.ValorCotaInicial,
-                QtdCotasAtual = valorMovimentacao / this.ValorCotaInicial,
                 VariacaoCotaPercentual = 0.0,
                 ValorCota = this.ValorCotaInicial,
                 VariacaoFinanceira = 0.0
@@ -49,19 +43,14 @@ namespace InvestNinja.Core.Domain
             Itens.Add(item);
         }
 
-        public void AddItem(DateTime dataCota, double valorMovimentacao, double saldo)
+        public void AddItem(DateTime dataCota, double valorCota)
         {
             ItemIndice item = new ItemIndice()
             {
                 DataCota = dataCota,
-                ValorMovimentacao = valorMovimentacao,
-                Saldo = saldo,
-                QtdCotasAnterior = this.QtdCotasAtual,
-                QtdCotasMovimentacao = valorMovimentacao / (this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo)),
-                QtdCotasAtual = this.QtdCotasAtual + (valorMovimentacao / (this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo))),
-                VariacaoCotaPercentual = (saldo - valorMovimentacao) / this.Saldo,
-                ValorCota = this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo),
-                VariacaoFinanceira = (saldo - valorMovimentacao) - this.Saldo
+                VariacaoCotaPercentual = valorCota / this.ValorCotaInicial,
+                ValorCota = valorCota,
+                VariacaoFinanceira = valorCota - this.ValorCotaInicial
             };
             Itens.Add(item);
         }
@@ -73,11 +62,5 @@ namespace InvestNinja.Core.Domain
         public double VariacaoCotaPercentual => Last.VariacaoCotaPercentual;
 
         public double VariacaoFinanceira => Last.VariacaoFinanceira;
-
-        public double TotalAplicado => this.Itens.Sum(it => it.ValorMovimentacao);
-
-        public double QtdCotasAtual => Last.QtdCotasAtual;
-
-        public double Saldo => Last.Saldo;
     }
 }

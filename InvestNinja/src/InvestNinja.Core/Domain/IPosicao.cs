@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InvestNinja.Core.Tipos
+namespace InvestNinja.Core.Domain
 {
-    public enum TipoMovimentacao { Aplicacao, Resgate, Rendimento };
+    public interface IPosicao
+    {
+    }
 }

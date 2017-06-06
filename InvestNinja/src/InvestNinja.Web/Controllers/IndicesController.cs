@@ -2,10 +2,8 @@
 using InvestNinja.Core.Domain;
 using InvestNinja.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InvestNinja.Web.Controllers
 {
@@ -32,7 +30,7 @@ namespace InvestNinja.Web.Controllers
         public void Post([FromBody]ItemIndice itemIndice, string codigo)
         {
             Indice indice = repository.GetById(codigo);
-            indice.AddItem(itemIndice.DataCota, itemIndice.ValorMovimentacao, itemIndice.Saldo);
+            indice.AddItem(itemIndice.DataCota, itemIndice.ValorCota);
             repository.Update(indice);
         }
     }
