@@ -10,11 +10,11 @@ using InvestNinja.Data;
 namespace InvestNinja.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class CarteiraController : Controller
+    public class CarteirasController : Controller
     {
         IRepository<Carteira> repository;
 
-        public CarteiraController()
+        public CarteirasController()
         {
             repository = new MongoRepository<Carteira>();
         }
