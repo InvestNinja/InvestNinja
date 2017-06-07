@@ -2,7 +2,7 @@
 
 namespace InvestNinja.Core.Domain
 {
-    public class ItemCarteira
+    public class ItemCarteira : IItemCotizacao
     {
         public DateTime DataCota { get; set; }
 

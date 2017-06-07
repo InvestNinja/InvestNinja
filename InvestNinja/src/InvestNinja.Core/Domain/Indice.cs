@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace InvestNinja.Core.Domain
 {
-    public class Indice : IEntity
+    public class Indice : IEntity, ICotizacao<ItemIndice>
     {
         public Indice()
         {

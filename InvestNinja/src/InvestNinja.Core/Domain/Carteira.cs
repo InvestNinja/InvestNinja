@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace InvestNinja.Core.Domain
 {
-    public class Carteira : IEntity
+    public class Carteira : IEntity, ICotizacao<ItemCarteira>
     {
         public Carteira()
         {
