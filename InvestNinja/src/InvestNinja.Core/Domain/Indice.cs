@@ -43,7 +43,7 @@ namespace InvestNinja.Core.Domain
             Itens.Add(item);
         }
 
-        public void AddItem(DateTime dataCota, double valorCota)
+        public void AddItemByValorCota(DateTime dataCota, double valorCota)
         {
             ItemIndice item = new ItemIndice()
             {
@@ -54,6 +54,8 @@ namespace InvestNinja.Core.Domain
             };
             Itens.Add(item);
         }
+
+        public void AddItemByVariacaoCota(DateTime dataCota, double variacaoCotaPercentual) => AddItemByValorCota(dataCota, Last.ValorCota * variacaoCotaPercentual);
 
         private ItemIndice Last => this.Itens.LastOrDefault() == null ? new ItemIndice() : this.Itens.Last();
 

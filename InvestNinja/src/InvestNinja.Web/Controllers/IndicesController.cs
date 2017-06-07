@@ -30,7 +30,7 @@ namespace InvestNinja.Web.Controllers
         public void Post([FromBody]ItemIndice itemIndice, string codigo)
         {
             Indice indice = repository.GetById(codigo);
-            indice.AddItem(itemIndice.DataCota, itemIndice.ValorCota);
+            indice.AddItemByValorCota(itemIndice.DataCota, itemIndice.ValorCota);
             repository.Update(indice);
         }
     }

@@ -32,7 +32,7 @@ namespace InvestNinja.Core.Test
         public void TesteIndiceComAdicaoDeSegundoItemIndice()
         {
             Indice indice = CreateIndice();
-            indice.AddItem(DateTime.Now.AddDays(1), 110.0);
+            indice.AddItemByValorCota(DateTime.Now.AddDays(1), 110.0);
             Assert.Equal(110.0, indice.ValorCotaAtual, 2);
             Assert.Equal(10.0, indice.VariacaoFinanceira, 2);
             Assert.Equal(1.1, indice.VariacaoCotaPercentual, 2);
@@ -42,7 +42,28 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemIndice()
         {
             Indice indice = CreateIndice();
-            indice.AddItem(DateTime.Now.AddDays(1), 110.0);
+            indice.AddItemByValorCota(DateTime.Now.AddDays(1), 110.0);
+            ItemIndice item = indice.Itens.LastOrDefault();
+            Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
+            Assert.Equal(10.0, item.VariacaoFinanceira, 2);
+            Assert.Equal(110.0, item.ValorCota, 2);
+        }
+
+        [Fact]
+        public void TesteIndiceComAdicaoDeSegundoItemIndiceByPercentual()
+        {
+            Indice indice = CreateIndice();
+            indice.AddItemByVariacaoCota(DateTime.Now.AddDays(1), 1.1);
+            Assert.Equal(110.0, indice.ValorCotaAtual, 2);
+            Assert.Equal(10.0, indice.VariacaoFinanceira, 2);
+            Assert.Equal(1.1, indice.VariacaoCotaPercentual, 2);
+        }
+
+        [Fact]
+        public void TesteCriacaoDeSegundoItemIndiceByPercentual()
+        {
+            Indice indice = CreateIndice();
+            indice.AddItemByVariacaoCota(DateTime.Now.AddDays(1), 1.1);
             ItemIndice item = indice.Itens.LastOrDefault();
             Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
             Assert.Equal(10.0, item.VariacaoFinanceira, 2);

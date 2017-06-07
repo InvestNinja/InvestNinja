@@ -32,7 +32,7 @@ namespace InvestNinja.Web.Controllers
         public void Post([FromBody]ItemCarteira itemCarteira, string codigo)
         {
             Carteira carteira = repository.GetById(codigo);
-            carteira.AddItem(itemCarteira.DataCota, itemCarteira.ValorMovimentacao, itemCarteira.Saldo);
+            carteira.AddItem(itemCarteira.DataCota, itemCarteira.Saldo, itemCarteira.ValorMovimentacao);
             repository.Update(carteira);
         }
     }

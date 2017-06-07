@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Data;
+using InvestNinja.Core.Tipos;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,9 @@ namespace InvestNinja.Core.Domain
             Itens.Add(item);
         }
 
-        public void AddItem(DateTime dataCota, double valorMovimentacao, double saldo)
+        public void AddItem(DateTime dataCota, double saldo) => AddItem(dataCota, saldo, 0.0);
+
+        public void AddItem(DateTime dataCota, double saldo, double valorMovimentacao)
         {
             ItemCarteira item = new ItemCarteira()
             {

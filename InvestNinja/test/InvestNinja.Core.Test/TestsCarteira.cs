@@ -40,7 +40,7 @@ namespace InvestNinja.Core.Test
         public void TesteCarteiraComAdicaoDeSegundoItemCarteiraSemMovimentacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 0.0, 1100.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1100.0);
             Assert.Equal(10.0, Carteira.QtdCotasAtual, 2);
             Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
             Assert.Equal(1100.0, Carteira.Saldo, 2);
@@ -53,7 +53,7 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemCarteiraSemMovimentacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 0.0, 1100.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
             Assert.Equal(0.0, item.ValorMovimentacao, 2);
             Assert.Equal(1100.0, item.Saldo, 2);
@@ -69,7 +69,7 @@ namespace InvestNinja.Core.Test
         public void TesteCarteiraComAdicaoDeSegundoItemCarteiraComAplicacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 100.0, 1200.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, 100.0);
             Assert.Equal(10.91, Carteira.QtdCotasAtual, 2);
             Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
             Assert.Equal(1200.0, Carteira.Saldo, 2);
@@ -82,7 +82,7 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemCarteiraComAplicacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 100.0, 1200.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, 100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
             Assert.Equal(100.0, item.ValorMovimentacao, 2);
             Assert.Equal(1200.0, item.Saldo, 2);
@@ -98,7 +98,7 @@ namespace InvestNinja.Core.Test
         public void TesteCarteiraComAdicaoDeSegundoItemCarteiraComResgate()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), -100.0, 1000.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, -100.0);
             Assert.Equal(9.09, Carteira.QtdCotasAtual, 2);
             Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
             Assert.Equal(1000.0, Carteira.Saldo, 2);
@@ -111,7 +111,7 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemCarteiraComResgate()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), -100.0, 1000.0);
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, -100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
             Assert.Equal(-100.0, item.ValorMovimentacao, 2);
             Assert.Equal(1000.0, item.Saldo, 2);
