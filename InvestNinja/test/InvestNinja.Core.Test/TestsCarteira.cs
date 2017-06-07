@@ -7,7 +7,7 @@ namespace InvestNinja.Core.Test
 {
     public class TestsCarteira
     {
-        private Carteira CreateCarteira() => new Carteira(new CarteiraInitializer("ITest", "Teste", 100.0, DateTime.Now, 1000.0));
+        private Carteira CreateCarteira() => new Carteira("ITest", "Teste", 100.0, DateTime.Now, 1000.0);
 
         [Fact]
         public void TestCriacaoDeCarteira() 

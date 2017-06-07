@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using InvestNinja.Core.Domain;
 using InvestNinja.Core.Data;
 using InvestNinja.Data;
+using InvestNinja.Core.DTO;
 
 namespace InvestNinja.Web.Controllers
 {
@@ -26,7 +25,7 @@ namespace InvestNinja.Web.Controllers
         public Carteira Get(string codigo) => repository.GetById(codigo);
 
         [HttpPost]
-        public void Post([FromBody]CarteiraInitializer carteiraInitializer) => repository.Insert(new Carteira(carteiraInitializer));
+        public void Post([FromBody]CarteiraInitializerDTO carteiraInitializer) => repository.Insert(new Carteira(carteiraInitializer.Codigo, carteiraInitializer.Descricao, carteiraInitializer.ValorCotaInicial, carteiraInitializer.DataCota, carteiraInitializer.Saldo));
 
         [HttpPost("{codigo}")]
         public void Post([FromBody]ItemCarteira itemCarteira, string codigo)

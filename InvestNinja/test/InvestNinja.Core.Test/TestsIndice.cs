@@ -7,7 +7,7 @@ namespace InvestNinja.Core.Test
 {
     public class TestsIndice
     {
-        private Indice CreateIndice() => new Indice(new IndiceInitializer("ITest", "Teste", 100.0, DateTime.Now));
+        private Indice CreateIndice() => new Indice("ITest", "Teste", 100.0, DateTime.Now);
 
         [Fact]
         public void TestCriacaoDeIndice() 

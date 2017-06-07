@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.DTO
 {
-    public class CarteiraInitializer
+    public class CarteiraInitializerDTO
     {
-        public CarteiraInitializer(string codigo, string descricao, double valorCotaInicial, DateTime dataCota, double saldo)
+        public CarteiraInitializerDTO(string codigo, string descricao, double valorCotaInicial, DateTime dataCota, double saldo)
         {
             this.Codigo = codigo;
             this.Descricao = descricao;

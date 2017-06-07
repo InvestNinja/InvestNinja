@@ -13,13 +13,13 @@ namespace InvestNinja.Core.Domain
             Itens = new List<ItemIndice>();
         }
 
-        public Indice(IndiceInitializer initializer)
+        public Indice(string codigo, string descricao, double valorCotaInicial, DateTime dataCota)
         {
             Itens = new List<ItemIndice>();
-            this.Codigo = initializer.Codigo;
-            this.Descricao = initializer.Descricao;
-            this.ValorCotaInicial = initializer.ValorCotaInicial;
-            AddPrimeiroItem(initializer.DataCota);
+            this.Codigo = codigo;
+            this.Descricao = descricao;
+            this.ValorCotaInicial = valorCotaInicial;
+            AddPrimeiroItem(dataCota);
         }
 
         [BsonId]

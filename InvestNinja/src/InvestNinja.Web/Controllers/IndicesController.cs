@@ -1,5 +1,6 @@
 ﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
+using InvestNinja.Core.DTO;
 using InvestNinja.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace InvestNinja.Web.Controllers
         public Indice Get(string codigo) => repository.GetById(codigo);
 
         [HttpPost]
-        public void Post([FromBody]IndiceInitializer indiceInitializer) => repository.Insert(new Indice(indiceInitializer));
+        public void Post([FromBody]IndiceInitializerDTO indiceInitializer) => repository.Insert(new Indice(indiceInitializer.Codigo, indiceInitializer.Descricao, indiceInitializer.ValorCotaInicial, indiceInitializer.DataCota));
 
         [HttpPost("{codigo}")]
         public void Post([FromBody]ItemIndice itemIndice, string codigo)

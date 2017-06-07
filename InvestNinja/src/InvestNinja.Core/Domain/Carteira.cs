@@ -1,5 +1,4 @@
 ﻿using InvestNinja.Core.Data;
-using InvestNinja.Core.Tipos;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -14,13 +13,13 @@ namespace InvestNinja.Core.Domain
             Itens = new List<ItemCarteira>();
         }
 
-        public Carteira(CarteiraInitializer initializer)
+        public Carteira(string codigo, string descricao, double valorCotaInicial, DateTime dataCota, double saldo)
         {
             Itens = new List<ItemCarteira>();
-            this.Codigo = initializer.Codigo;
-            this.Descricao = initializer.Descricao;
-            this.ValorCotaInicial = initializer.ValorCotaInicial;
-            AddPrimeiroItem(initializer.DataCota, initializer.Saldo);
+            this.Codigo = codigo;
+            this.Descricao = descricao;
+            this.ValorCotaInicial = valorCotaInicial;
+            AddPrimeiroItem(dataCota, saldo);
         }
 
         [BsonId]

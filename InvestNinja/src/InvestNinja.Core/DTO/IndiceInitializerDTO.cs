@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.DTO
 {
-    public class IndiceInitializer
+    public class IndiceInitializerDTO
     {
-        public IndiceInitializer(string codigo, string descricao, double valorCotaInicial, DateTime dataCota)
+        public IndiceInitializerDTO(string codigo, string descricao, double valorCotaInicial, DateTime dataCota)
         {
             this.Codigo = codigo;
             this.Descricao = descricao;
