@@ -13,35 +13,16 @@ namespace InvestNinja.ClassFinder
         public string RestrictToPattern { get; set; }
         public string SkipPattern { get; set; }
 
-        private string GetRestrictToPattern()
-        {
-            return RestrictToPattern;
-        }
-
-        private string GetSkipPattern()
-        {
-            return SkipPattern;
-        }
-
         public AppTypeFinder(IList<IAssemblyLoader> loaders)
         {
             this.listLoader = loaders;
         }
 
-        public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(typeof(T), onlyConcreteClasses);
-        }
+        public IEnumerable<Type> FindClassesOfType<T>(bool onlyConcreteClasses = true) => FindClassesOfType(typeof(T), onlyConcreteClasses);
 
-        public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(assignTypeFrom, GetAssemblies(), onlyConcreteClasses);
-        }
+        public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, bool onlyConcreteClasses = true) => FindClassesOfType(assignTypeFrom, GetAssemblies(), onlyConcreteClasses);
 
-        public IEnumerable<Type> FindClassesOfType<T>(IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
-        {
-            return FindClassesOfType(typeof(T), assemblies, onlyConcreteClasses);
-        }
+        public IEnumerable<Type> FindClassesOfType<T>(IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true) => FindClassesOfType(typeof(T), assemblies, onlyConcreteClasses);
 
         public IEnumerable<Type> FindClassesOfType(Type assignTypeFrom, IEnumerable<Assembly> assemblies, bool onlyConcreteClasses = true)
         {
@@ -114,9 +95,9 @@ namespace InvestNinja.ClassFinder
 
         private void AddAssemblies(List<string> addedAssemblyNames, List<Assembly> assemblies, IAssemblyLoader loader)
         {
+            StringMatch match = new StringMatch(RestrictToPattern, SkipPattern);
             foreach (Assembly assembly in loader.GetAssemblies())
             {
-                StringMatch match = new StringMatch(RestrictToPattern, SkipPattern);
                 if (match.Matches(assembly.FullName))
                 {
                     if (!addedAssemblyNames.Contains(assembly.FullName))
@@ -138,8 +119,7 @@ namespace InvestNinja.ClassFinder
                     if (!implementedInterface.GetTypeInfo().IsGenericType)
                         continue;
 
-                    var isMatch = genericTypeDefinition.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition());
-                    return isMatch;
+                    return genericTypeDefinition.IsAssignableFrom(implementedInterface.GetGenericTypeDefinition());
                 }
                 return false;
             }

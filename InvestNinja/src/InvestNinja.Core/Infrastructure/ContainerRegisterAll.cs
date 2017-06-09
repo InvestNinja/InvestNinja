@@ -2,9 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InvestNinja.Core.Infrastructure
 {
@@ -28,8 +26,7 @@ namespace InvestNinja.Core.Infrastructure
 
         public static IServiceProvider RegisterDependenciesReferenced()
         {
-            IList<IAssemblyLoader> loaders = new List<IAssemblyLoader>();
-            loaders.Add(new DependencyContextLoader());
+            IList<IAssemblyLoader> loaders = new List<IAssemblyLoader>() { new DependencyContextLoader() };
             return RegisterDependencies(loaders);
         }
     }

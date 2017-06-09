@@ -1,8 +1,5 @@
 ﻿using InvestNinja.Core.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using InvestNinja.Core.Infrastructure;
@@ -36,17 +33,9 @@ namespace InvestNinja.Core.Test
         public void TestCalcularMontanteMensalInflacaoComResgate() => Assert.Equal(446.32, financialService.CalcularMontanteMensalInflacao(1000.00, 100.0, 1.5, 6, 0.5, Tipos.TipoMovimentacao.Resgate), 2);
 
         [Fact]
-        public void TestCalcularMontanteMensalCompletoComAplicacao()
-        {
-            var montante = financialService.CalcularMontanteMensalCompleto(1000.00, 100.0, 1.5, 6, 0.5, 0.0, 0.0, 0.0, Tipos.TipoMovimentacao.Aplicacao, false);
-            Assert.Equal(1682.87, montante, 2);
-        }
+        public void TestCalcularMontanteMensalCompletoComAplicacao() => Assert.Equal(1682.87, financialService.CalcularMontanteMensalCompleto(1000.00, 100.0, 1.5, 6, 0.5, 0.0, 0.0, 0.0, Tipos.TipoMovimentacao.Aplicacao, false), 2);
 
         [Fact]
-        public void TestCalcularMontanteMensalCompletoComResgate()
-        {
-            var montante = financialService.CalcularMontanteMensalCompleto(1000.00, 100.0, 1.5, 6, 0.5, 0.0, 0.0, 0.0, Tipos.TipoMovimentacao.Resgate, false);
-            Assert.Equal(446.32, montante, 2);
-        }
+        public void TestCalcularMontanteMensalCompletoComResgate() => Assert.Equal(446.32, financialService.CalcularMontanteMensalCompleto(1000.00, 100.0, 1.5, 6, 0.5, 0.0, 0.0, 0.0, Tipos.TipoMovimentacao.Resgate, false), 2);
     }
 }

@@ -1,9 +1,6 @@
 ﻿using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 

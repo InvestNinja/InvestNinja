@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Service;
@@ -28,10 +25,7 @@ namespace InvestNinja.Core.Test
         }
 
         [Fact]
-        public void TestCalcularTotalJurosTabelaPrice()
-        {
-            Assert.Equal(3004.80, financiamentoService.CalcularTotalJurosTabelaPrice(30000.00, 0.015, 12), 2);
-        }
+        public void TestCalcularTotalJurosTabelaPrice() => Assert.Equal(3004.80, financiamentoService.CalcularTotalJurosTabelaPrice(30000.00, 0.015, 12), 2);
 
         [Fact]
         public void TestCalcularTotalJurosTabelaSac()
