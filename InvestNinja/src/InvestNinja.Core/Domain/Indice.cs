@@ -48,9 +48,9 @@ namespace InvestNinja.Core.Domain
             ItemIndice item = new ItemIndice()
             {
                 DataCota = dataCota,
-                VariacaoCotaPercentual = valorCota / this.ValorCotaInicial,
+                VariacaoCotaPercentual = valorCota / this.ValorCotaAtual,
                 ValorCota = valorCota,
-                VariacaoFinanceira = valorCota - this.ValorCotaInicial
+                VariacaoFinanceira = valorCota - this.ValorCotaAtual
             };
             Itens.Add(item);
         }
