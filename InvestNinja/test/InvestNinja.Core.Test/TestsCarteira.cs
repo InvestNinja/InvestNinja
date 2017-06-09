@@ -26,7 +26,7 @@ namespace InvestNinja.Core.Test
         {
             Carteira Carteira = CreateCarteira();
             ItemCarteira item = Carteira.Itens.LastOrDefault();
-            Assert.Equal(1000.0, item.ValorMovimentacao, 2);
+            Assert.Equal(1000.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1000.0, item.Saldo, 2);
             Assert.Equal(0.0, item.QtdCotasAnterior, 2);
             Assert.Equal(10.0, item.QtdCotasMovimentacao, 2);
@@ -55,7 +55,7 @@ namespace InvestNinja.Core.Test
             Carteira Carteira = CreateCarteira();
             Carteira.AddItem(DateTime.Now.AddDays(1), 1100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
-            Assert.Equal(0.0, item.ValorMovimentacao, 2);
+            Assert.Equal(0.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1100.0, item.Saldo, 2);
             Assert.Equal(10.0, item.QtdCotasAnterior, 2);
             Assert.Equal(0.0, item.QtdCotasMovimentacao, 2);
@@ -84,7 +84,7 @@ namespace InvestNinja.Core.Test
             Carteira Carteira = CreateCarteira();
             Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, 100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
-            Assert.Equal(100.0, item.ValorMovimentacao, 2);
+            Assert.Equal(100.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1200.0, item.Saldo, 2);
             Assert.Equal(10.0, item.QtdCotasAnterior, 2);
             Assert.Equal(0.91, item.QtdCotasMovimentacao, 2);
@@ -113,7 +113,7 @@ namespace InvestNinja.Core.Test
             Carteira Carteira = CreateCarteira();
             Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, -100.0);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
-            Assert.Equal(-100.0, item.ValorMovimentacao, 2);
+            Assert.Equal(-100.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1000.0, item.Saldo, 2);
             Assert.Equal(10.0, item.QtdCotasAnterior, 2);
             Assert.Equal(-0.91, item.QtdCotasMovimentacao, 2);

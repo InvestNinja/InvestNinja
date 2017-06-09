@@ -36,7 +36,6 @@ namespace InvestNinja.Core.Domain
             ItemCarteira item = new ItemCarteira()
             {
                 DataCota = dataCota,
-                ValorMovimentacao = saldo,
                 Saldo = saldo,
                 QtdCotasAnterior = 0.0,
                 QtdCotasMovimentacao = saldo / this.ValorCotaInicial,
@@ -45,6 +44,7 @@ namespace InvestNinja.Core.Domain
                 ValorCota = this.ValorCotaInicial,
                 VariacaoFinanceira = 0.0
             };
+            item.Movimentacoes.Add(new MovimentacaoCarteira() { Valor = saldo, Descricao = "", Tipo = Tipos.TipoMovimentacao.Aplicacao });
             Itens.Add(item);
         }
 
@@ -55,7 +55,6 @@ namespace InvestNinja.Core.Domain
             ItemCarteira item = new ItemCarteira()
             {
                 DataCota = dataCota,
-                ValorMovimentacao = valorMovimentacao,
                 Saldo = saldo,
                 QtdCotasAnterior = this.QtdCotasAtual,
                 QtdCotasMovimentacao = valorMovimentacao / (this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo)),
@@ -64,6 +63,9 @@ namespace InvestNinja.Core.Domain
                 ValorCota = this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo),
                 VariacaoFinanceira = (saldo - valorMovimentacao) - this.Saldo
             };
+
+            item.Movimentacoes.Add(new MovimentacaoCarteira() { Valor = valorMovimentacao, Descricao = "", Tipo = Tipos.TipoMovimentacao.Aplicacao });
+
             Itens.Add(item);
         }
 
@@ -75,7 +77,7 @@ namespace InvestNinja.Core.Domain
 
         public double VariacaoFinanceira => Last.VariacaoFinanceira;
 
-        public double TotalAplicado => this.Itens.Sum(it => it.ValorMovimentacao);
+        public double TotalAplicado => this.Itens.Sum(it => it.ValorMovimentacoes);
 
         public double QtdCotasAtual => Last.QtdCotasAtual;
 
