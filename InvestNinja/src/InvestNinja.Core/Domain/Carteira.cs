@@ -30,6 +30,8 @@ namespace InvestNinja.Core.Domain
 
         public double ValorCotaInicial { get; set; }
 
+        public string UserName { get; set; }
+
         public IList<ItemCarteira> Itens { get; set; }
 
         private void AddPrimeiroItem(DateTime dataCota, double saldo)

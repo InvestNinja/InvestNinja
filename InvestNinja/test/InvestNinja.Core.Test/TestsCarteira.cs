@@ -160,5 +160,64 @@ namespace InvestNinja.Core.Test
             Assert.Equal(100.0, item.VariacaoFinanceira, 2);
             Assert.Equal(110.0, item.ValorCota, 2);
         }
+
+        [Fact]
+        public void TesteCarteiraComAdicaoDeSegundoItemCarteiraComMovimentacoes()
+        {
+            Carteira Carteira = CreateCarteira();
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 200.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                },
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Aluguel",
+                    Tipo = TipoMovimentacao.Rendimento
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, list);
+            Assert.Equal(9.09, Carteira.QtdCotasAtual, 2);
+            Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
+            Assert.Equal(1000.0, Carteira.Saldo, 2);
+            Assert.Equal(900.0, Carteira.TotalAplicado, 2);
+            Assert.Equal(100.0, Carteira.VariacaoFinanceira, 2);
+            Assert.Equal(1.1, Carteira.VariacaoCotaPercentual, 2);
+        }
+
+        [Fact]
+        public void TesteCriacaoDeTerceiroItemCarteiraComMovimentacoes()
+        {
+            Carteira Carteira = CreateCarteira();
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 200.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                },
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Aluguel",
+                    Tipo = TipoMovimentacao.Rendimento
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, list);
+            ItemCarteira item = Carteira.Itens.LastOrDefault();
+            Assert.Equal(-100.0, item.ValorMovimentacoes, 2);
+            Assert.Equal(1000.0, item.Saldo, 2);
+            Assert.Equal(10.0, item.QtdCotasAnterior, 2);
+            Assert.Equal(-0.91, item.QtdCotasMovimentacao, 2);
+            Assert.Equal(9.09, item.QtdCotasAtual, 2);
+            Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
+            Assert.Equal(100.0, item.VariacaoFinanceira, 2);
+            Assert.Equal(110.0, item.ValorCota, 2);
+        }
     }
 }
