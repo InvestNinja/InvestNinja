@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestNinja.Core.Test", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestNinja.ClassFinder", "src\InvestNinja.ClassFinder\InvestNinja.ClassFinder.csproj", "{D184D07C-5D16-4694-BBB9-2D3552E664B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestNinja.ClassFinder.Test", "test\InvestNinja.ClassFinder.Test\InvestNinja.ClassFinder.Test.csproj", "{3483F9E4-A05F-40A3-BAF2-9C92B43379BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestNinja.ClassFinder.Test", "test\InvestNinja.ClassFinder.Test\InvestNinja.ClassFinder.Test.csproj", "{24AE10A3-DED0-43BA-800E-2D9978C64D2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{D184D07C-5D16-4694-BBB9-2D3552E664B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D184D07C-5D16-4694-BBB9-2D3552E664B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D184D07C-5D16-4694-BBB9-2D3552E664B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3483F9E4-A05F-40A3-BAF2-9C92B43379BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3483F9E4-A05F-40A3-BAF2-9C92B43379BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3483F9E4-A05F-40A3-BAF2-9C92B43379BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3483F9E4-A05F-40A3-BAF2-9C92B43379BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24AE10A3-DED0-43BA-800E-2D9978C64D2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24AE10A3-DED0-43BA-800E-2D9978C64D2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24AE10A3-DED0-43BA-800E-2D9978C64D2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24AE10A3-DED0-43BA-800E-2D9978C64D2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +59,6 @@ Global
 		{040A4C22-E913-4055-B745-9AAFA40ED9C9} = {B4E3BC34-7BCF-410F-873F-21BB320794A5}
 		{EFD096CA-153A-46A5-B659-80F76E4F1283} = {BD60C162-7C71-4A16-98C5-772A06F6BEE9}
 		{D184D07C-5D16-4694-BBB9-2D3552E664B0} = {B4E3BC34-7BCF-410F-873F-21BB320794A5}
-		{3483F9E4-A05F-40A3-BAF2-9C92B43379BF} = {BD60C162-7C71-4A16-98C5-772A06F6BEE9}
+		{24AE10A3-DED0-43BA-800E-2D9978C64D2C} = {BD60C162-7C71-4A16-98C5-772A06F6BEE9}
 	EndGlobalSection
 EndGlobal
