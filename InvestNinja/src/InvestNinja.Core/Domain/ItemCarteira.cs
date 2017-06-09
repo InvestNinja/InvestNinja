@@ -13,7 +13,7 @@ namespace InvestNinja.Core.Domain
 
         public DateTime DataCota { get; set; }
 
-        public double ValorMovimentacoes => Movimentacoes.Sum(movimentacao => movimentacao.Valor);
+        public double ValorMovimentacoes { get; set; }
 
         public double Saldo { get; set; }
 

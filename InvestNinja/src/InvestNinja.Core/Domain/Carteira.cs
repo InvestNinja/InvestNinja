@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Data;
+using InvestNinja.Core.Tipos;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -42,17 +43,32 @@ namespace InvestNinja.Core.Domain
                 QtdCotasAtual = saldo / this.ValorCotaInicial,
                 VariacaoCotaPercentual = 0.0,
                 ValorCota = this.ValorCotaInicial,
-                VariacaoFinanceira = 0.0
+                VariacaoFinanceira = 0.0,
+                ValorMovimentacoes = saldo
             };
-            item.Movimentacoes.Add(new MovimentacaoCarteira() { Valor = saldo, Descricao = "", Tipo = Tipos.TipoMovimentacao.Aplicacao });
+            item.Movimentacoes.Add(new MovimentacaoCarteira() { Valor = saldo, Descricao = "Aplicação inicial", Tipo = TipoMovimentacao.Aplicacao });
             Itens.Add(item);
         }
 
-        public void AddItem(DateTime dataCota, double saldo) => AddItem(dataCota, saldo, 0.0);
+        public void AddItem(DateTime dataCota, double saldo) => Itens.Add(CreateItem(dataCota, saldo, 0.0));
 
-        public void AddItem(DateTime dataCota, double saldo, double valorMovimentacao)
+        public void AddItem(DateTime dataCota, double saldo, IList<MovimentacaoCarteira> movimentacoes)
         {
-            ItemCarteira item = new ItemCarteira()
+            ItemCarteira item = CreateItem(dataCota, saldo, GetValorMovimentacoes(movimentacoes));
+            item.Movimentacoes = movimentacoes;
+            Itens.Add(item);
+        }
+
+        private double GetValorMovimentacoes(IList<MovimentacaoCarteira> movimentacoes)
+        {
+            double valorAdicionado = movimentacoes.Where(movimentacao => movimentacao.Tipo != TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
+            double valorSubtraido = movimentacoes.Where(movimentacao => movimentacao.Tipo == TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
+            return valorAdicionado - valorSubtraido;
+        }
+
+        private ItemCarteira CreateItem(DateTime dataCota, double saldo, double valorMovimentacao)
+        {
+            return new ItemCarteira()
             {
                 DataCota = dataCota,
                 Saldo = saldo,
@@ -61,12 +77,9 @@ namespace InvestNinja.Core.Domain
                 QtdCotasAtual = this.QtdCotasAtual + (valorMovimentacao / (this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo))),
                 VariacaoCotaPercentual = (saldo - valorMovimentacao) / this.Saldo,
                 ValorCota = this.ValorCotaAtual * ((saldo - valorMovimentacao) / this.Saldo),
-                VariacaoFinanceira = (saldo - valorMovimentacao) - this.Saldo
+                VariacaoFinanceira = (saldo - valorMovimentacao) - this.Saldo,
+                ValorMovimentacoes = valorMovimentacao
             };
-
-            item.Movimentacoes.Add(new MovimentacaoCarteira() { Valor = valorMovimentacao, Descricao = "", Tipo = Tipos.TipoMovimentacao.Aplicacao });
-
-            Itens.Add(item);
         }
 
         private ItemCarteira Last => this.Itens.LastOrDefault() == null ? new ItemCarteira() : this.Itens.Last();

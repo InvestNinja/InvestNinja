@@ -1,5 +1,7 @@
 ﻿using InvestNinja.Core.Domain;
+using InvestNinja.Core.Tipos;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -69,7 +71,16 @@ namespace InvestNinja.Core.Test
         public void TesteCarteiraComAdicaoDeSegundoItemCarteiraComAplicacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, 100.0);
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Aplicação",
+                    Tipo = TipoMovimentacao.Aplicacao
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, list);
             Assert.Equal(10.91, Carteira.QtdCotasAtual, 2);
             Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
             Assert.Equal(1200.0, Carteira.Saldo, 2);
@@ -82,7 +93,16 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemCarteiraComAplicacao()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, 100.0);
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Aplicação",
+                    Tipo = TipoMovimentacao.Aplicacao
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1200.0, list);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
             Assert.Equal(100.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1200.0, item.Saldo, 2);
@@ -98,7 +118,16 @@ namespace InvestNinja.Core.Test
         public void TesteCarteiraComAdicaoDeSegundoItemCarteiraComResgate()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, -100.0);
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, list);
             Assert.Equal(9.09, Carteira.QtdCotasAtual, 2);
             Assert.Equal(110.0, Carteira.ValorCotaAtual, 2);
             Assert.Equal(1000.0, Carteira.Saldo, 2);
@@ -111,7 +140,16 @@ namespace InvestNinja.Core.Test
         public void TesteCriacaoDeSegundoItemCarteiraComResgate()
         {
             Carteira Carteira = CreateCarteira();
-            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, -100.0);
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                }
+            };
+            Carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, list);
             ItemCarteira item = Carteira.Itens.LastOrDefault();
             Assert.Equal(-100.0, item.ValorMovimentacoes, 2);
             Assert.Equal(1000.0, item.Saldo, 2);
