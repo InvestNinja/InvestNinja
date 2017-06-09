@@ -27,8 +27,8 @@ namespace InvestNinja.Web.Controllers
         [HttpPost]
         public void Post([FromBody]IndiceInitializerDTO indiceInitializer) => repository.Insert(new Indice(indiceInitializer.Codigo, indiceInitializer.Descricao, indiceInitializer.ValorCotaInicial, indiceInitializer.DataCota));
 
-        [HttpPost("{codigo}")]
-        public void Post([FromBody]ItemIndice itemIndice, string codigo)
+        [HttpPatch("{codigo}")]
+        public void Patch([FromBody]ItemIndice itemIndice, string codigo)
         {
             Indice indice = repository.GetById(codigo);
             if (itemIndice.ValorCota >= 0.0)
