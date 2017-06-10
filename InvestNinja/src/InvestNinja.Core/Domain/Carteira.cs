@@ -63,9 +63,13 @@ namespace InvestNinja.Core.Domain
 
         private double GetValorMovimentacoes(IList<MovimentacaoCarteira> movimentacoes)
         {
-            double valorAdicionado = movimentacoes.Where(movimentacao => movimentacao.Tipo != TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
-            double valorSubtraido = movimentacoes.Where(movimentacao => movimentacao.Tipo == TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
-            return valorAdicionado - valorSubtraido;
+            if (movimentacoes != null)
+            {
+                double valorAdicionado = movimentacoes.Where(movimentacao => movimentacao.Tipo != TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
+                double valorSubtraido = movimentacoes.Where(movimentacao => movimentacao.Tipo == TipoMovimentacao.Resgate).Sum(movimentacao => movimentacao.Valor);
+                return valorAdicionado - valorSubtraido;
+            }
+            return 0.0;
         }
 
         private ItemCarteira CreateItem(DateTime dataCota, double saldo, double valorMovimentacao)

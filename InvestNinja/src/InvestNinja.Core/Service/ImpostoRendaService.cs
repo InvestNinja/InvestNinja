@@ -16,28 +16,26 @@ namespace InvestNinja.Core.Service
         {
             if (qtdDias <= 180)
                 return 22.5;
-            else if ((qtdDias <= 360) || (curtoPrazo))
+            if ((qtdDias <= 360) || (curtoPrazo))
                 return 20.0;
-            else if (qtdDias <= 720)
+            if (qtdDias <= 720)
                 return 17.5;
-            else //qtdDias > 720
-                return 15.0;
+            return 15.0; //qtdDias > 720
         }
 
         public double CalcularAliquotaIRTabelaRegressivaPrevidencia(double qtdAnos)
         {
             if (qtdAnos <= 2)
                 return 35.0;
-            else if (qtdAnos <= 4)
+            if (qtdAnos <= 4)
                 return 30.0;
-            else if (qtdAnos <= 6)
+            if (qtdAnos <= 6)
                 return 25.0;
-            else if (qtdAnos <= 8)
+            if (qtdAnos <= 8)
                 return 20.0;
-            else if (qtdAnos <= 10)
+            if (qtdAnos <= 10)
                 return 15.0;
-            else //qtdAnos > 10
-                return 10.0;
+            return 10.0; //qtdAnos > 10
         }
     }
 }

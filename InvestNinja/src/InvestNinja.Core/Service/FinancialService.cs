@@ -12,7 +12,15 @@ namespace InvestNinja.Core.Service
 
         public double CalcularMontanteMensal(double pv, double mv, double i, int n, TipoMovimentacao tipoMovimentacao)
         {
-            double aux = pv;            for (int a = 0; a < n; a++)            {                if (tipoMovimentacao == TipoMovimentacao.Aplicacao)                    aux = CalcularMontante(aux + mv, i, 1);                else                    aux = CalcularMontante(aux, i, 1) - mv;            }            return aux;
+            double aux = pv;
+            for (int a = 0; a < n; a++)
+            {
+                if (tipoMovimentacao == TipoMovimentacao.Aplicacao)
+                    aux = CalcularMontante(aux + mv, i, 1);
+                else
+                    aux = CalcularMontante(aux, i, 1) - mv;
+            }
+            return aux;
         }
 
         public double CalcularMontanteMensalCompleto(double pv, double mv, double i, int n, double inflacao, double taxaAdm, double taxaCarregamento, double impostoRenda, TipoMovimentacao tipoMovimentacao)
@@ -22,7 +30,49 @@ namespace InvestNinja.Core.Service
 
         public double CalcularMontanteMensalCompleto(double pv, double mv, double i, int n, double inflacao, double taxaAdm, double taxaCarregamento, double impostoRenda, TipoMovimentacao tipoMovimentacao, bool comeCotas)
         {
-            double aux = pv;            double rendimentoTotal = 0.0;            double rendimentoParcial = 0.0;            double oldAux = aux;            mv = mv - (mv * taxaCarregamento);            for (int a = 0; a < n; a++)            {                aux = aux - (aux * taxaAdm);                if (tipoMovimentacao == TipoMovimentacao.Aplicacao)                {                    aux = CalcularMontante(aux + mv, i - inflacao, 1);                    rendimentoTotal = rendimentoTotal + (aux - oldAux - mv);                    rendimentoParcial = rendimentoParcial + (aux - oldAux - mv);                    if ((comeCotas) && (a % 6 == 0))                    {                        aux = aux - (rendimentoParcial * 0.15);                        rendimentoParcial = 0.0;                    }                    oldAux = aux;                }                else                {                    aux = CalcularMontante(aux, i - inflacao, 1) - mv;                    rendimentoTotal = rendimentoTotal + (aux - oldAux);                    rendimentoParcial = rendimentoParcial + (aux - oldAux);                    if ((comeCotas) && (a % 6 == 0))                    {                        aux = aux - (rendimentoParcial * 0.15);                        rendimentoParcial = 0.0;                    }                    oldAux = aux;                }            }            if (comeCotas)            {                aux = aux - (rendimentoParcial * 0.15);                aux = aux - (rendimentoTotal * (impostoRenda - 0.15));            }            else            {                aux = aux - (rendimentoTotal * impostoRenda);            }            return aux;
+            double aux = pv;
+            double rendimentoTotal = 0.0;
+            double rendimentoParcial = 0.0;
+            double oldAux = aux;
+            mv = mv - (mv * taxaCarregamento);
+            for (int a = 0; a < n; a++)
+            {
+                aux = aux - (aux * taxaAdm);
+                if (tipoMovimentacao == TipoMovimentacao.Aplicacao)
+                {
+                    aux = CalcularMontante(aux + mv, i - inflacao, 1);
+                    rendimentoTotal = rendimentoTotal + (aux - oldAux - mv);
+                    rendimentoParcial = rendimentoParcial + (aux - oldAux - mv);
+                    if ((comeCotas) && (a % 6 == 0))
+                    {
+                        aux = aux - (rendimentoParcial * 0.15);
+                        rendimentoParcial = 0.0;
+                    }
+                    oldAux = aux;
+                }
+                else
+                {
+                    aux = CalcularMontante(aux, i - inflacao, 1) - mv;
+                    rendimentoTotal = rendimentoTotal + (aux - oldAux);
+                    rendimentoParcial = rendimentoParcial + (aux - oldAux);
+                    if ((comeCotas) && (a % 6 == 0))
+                    {
+                        aux = aux - (rendimentoParcial * 0.15);
+                        rendimentoParcial = 0.0;
+                    }
+                    oldAux = aux;
+                }
+            }
+            if (comeCotas)
+            {
+                aux = aux - (rendimentoParcial * 0.15);
+                aux = aux - (rendimentoTotal * (impostoRenda - 0.15));
+            }
+            else
+            {
+                aux = aux - (rendimentoTotal * impostoRenda);
+            }
+            return aux;
         }
 
         public double CalcularMontanteMensalInflacao(double pv, double mv, double i, int n, double inflacao, TipoMovimentacao tipoMovimentacao)
