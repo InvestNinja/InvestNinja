@@ -17,6 +17,17 @@ namespace InvestNinja.Web.Controllers
             repository = new MongoRepository<GrupoCarteira>();
         }
 
+        [HttpGet("payload/teste")]
+        public GrupoCarteira TesteGrupo()
+        {
+            GrupoCarteira grupoCarteira = new GrupoCarteira();
+            grupoCarteira.Codigo = "GrupoTeste";
+            grupoCarteira.Descricao = "Grupo de carteira teste";
+            grupoCarteira.UserName = "teste";
+            grupoCarteira.Carteiras.Add("ITest");
+            return grupoCarteira;
+        }
+
         [HttpGet]
         public IList<GrupoCarteira> GetAll() => repository.GetAll().ToList();
 

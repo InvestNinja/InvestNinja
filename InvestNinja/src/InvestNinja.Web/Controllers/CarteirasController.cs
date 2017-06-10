@@ -6,6 +6,8 @@ using InvestNinja.Core.Data;
 using InvestNinja.Data;
 using InvestNinja.Core.DTO;
 using InvestNinja.Core.Utils;
+using System;
+using InvestNinja.Core.Tipos;
 
 namespace InvestNinja.Web.Controllers
 {
@@ -19,10 +21,33 @@ namespace InvestNinja.Web.Controllers
             repository = new MongoRepository<Carteira>();
         }
 
+        [HttpGet("payload/teste")]
+        public Carteira TesteCarteira()
+        {
+            Carteira carteira = new Carteira("ITest", "Teste", 100.0, DateTime.Now, 1000.0);
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 200.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                },
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Aluguel",
+                    Tipo = TipoMovimentacao.Rendimento
+                }
+            };
+            carteira.AddItem(DateTime.Now.AddDays(1), 1000.0, list);
+            return carteira;
+        }
+
         [HttpGet]
         public IList<Carteira> GetAll() => repository.GetAll().ToList();
 
-        [HttpGet("/grupo/{codigoGrupoCarteira}")]
+        [HttpGet("grupo/{codigoGrupoCarteira}")]
         public IList<Carteira> GetByGrupoCarteira(string codigoGrupoCarteira)
         {
             IList<Carteira> carteiras = new List<Carteira>();

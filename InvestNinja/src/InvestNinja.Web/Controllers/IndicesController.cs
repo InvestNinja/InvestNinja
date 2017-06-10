@@ -3,6 +3,7 @@ using InvestNinja.Core.Domain;
 using InvestNinja.Core.DTO;
 using InvestNinja.Data;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,14 @@ namespace InvestNinja.Web.Controllers
         public IndicesController()
         {
             repository = new MongoRepository<Indice>();
+        }
+
+        [HttpGet("payload/teste")]
+        public Indice TesteCarteira()
+        {
+            Indice indice = new Indice("ITest", "Teste", 100.0, DateTime.Now);
+            indice.AddItemByValorCota(DateTime.Now.AddDays(1), 110.0);
+            return indice;
         }
 
         [HttpGet]
