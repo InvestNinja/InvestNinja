@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace InvestNinja.Core.Domain
 {
-    public class Indice : IEntity, ICotizacao<IItemCotizacao>
+    public class Indice : IEntity, ICotizacao<ItemIndice>
     {
         public Indice()
         {
-            Itens = new List<IItemCotizacao>();
+            Itens = new List<ItemIndice>();
         }
 
         public Indice(string codigo, string descricao, double valorCotaInicial, DateTime dataCota)
         {
-            Itens = new List<IItemCotizacao>();
+            Itens = new List<ItemIndice>();
             this.Codigo = codigo;
             this.Descricao = descricao;
             this.ValorCotaInicial = valorCotaInicial;
@@ -29,7 +29,7 @@ namespace InvestNinja.Core.Domain
 
         public double ValorCotaInicial { get; set; }
 
-        public IList<IItemCotizacao> Itens { get; set; }
+        public IList<ItemIndice> Itens { get; set; }
 
         private void AddPrimeiroItem(DateTime dataCota)
         {
@@ -57,7 +57,7 @@ namespace InvestNinja.Core.Domain
 
         public void AddItemByVariacaoCota(DateTime dataCota, double variacaoCotaPercentual) => AddItemByValorCota(dataCota, Last.ValorCota * variacaoCotaPercentual);
 
-        private ItemIndice Last => this.Itens.LastOrDefault() == null ? new ItemIndice() : (ItemIndice)this.Itens.Last();
+        private ItemIndice Last => this.Itens.LastOrDefault() == null ? new ItemIndice() : this.Itens.Last();
 
         public double ValorCotaAtual => Last.ValorCota;
 

@@ -8,6 +8,6 @@ namespace InvestNinja.Core.Service
 {
     public interface IBenchmarkService
     {
-        IList<ICotizacao<IItemCotizacao>> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO);
+        IList<Indice> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO);
     }
 }

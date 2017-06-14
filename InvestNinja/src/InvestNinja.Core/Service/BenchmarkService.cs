@@ -20,15 +20,15 @@ namespace InvestNinja.Core.Service
             this.repositoryIndice = repositoryIndice;
         }
 
-        public IList<ICotizacao<IItemCotizacao>> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO)
+        public IList<Indice> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO)
         {
-            IList<ICotizacao<IItemCotizacao>> listCotizacao = new List<ICotizacao<IItemCotizacao>>();
+            IList<Indice> listCotizacao = new List<Indice>();
             benchmarkDTO.Indices.ForEach(indice => listCotizacao.Add(GetCotizacaoAjustadaPorData(repositoryIndice.GetById(indice), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
             benchmarkDTO.Carteiras.ForEach(carteira => listCotizacao.Add(GetCotizacaoAjustadaPorData(CarteiraToIndice(repositoryCarteira.GetById(carteira)), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
             return listCotizacao.Where(cotizacao => cotizacao != null).ToList();
         }
 
-        private ICotizacao<IItemCotizacao> GetCotizacaoAjustadaPorData(ICotizacao<IItemCotizacao> cotizacaoCompleta, DateTime dataInicio, DateTime dataFim)
+        private Indice GetCotizacaoAjustadaPorData(Indice cotizacaoCompleta, DateTime dataInicio, DateTime dataFim)
         {
             var itensFiltered = cotizacaoCompleta?.Itens?.Where(item => item.DataCota >= dataInicio && item.DataCota <= dataFim)?.ToList();
             if (itensFiltered?.Count > 0)
