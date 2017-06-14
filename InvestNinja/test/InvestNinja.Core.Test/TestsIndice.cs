@@ -22,7 +22,7 @@ namespace InvestNinja.Core.Test
         public void TestCriacaoDePrimeiroItemIndice()
         {
             Indice indice = CreateIndice();
-            IItemCotizacao item = indice.Itens.LastOrDefault();
+            ItemIndice item = indice.Itens.LastOrDefault();
             Assert.Equal(0.0, item.VariacaoCotaPercentual, 2);
             Assert.Equal(0.0, item.VariacaoFinanceira, 2);
             Assert.Equal(100.0, item.ValorCota, 2);
@@ -43,7 +43,7 @@ namespace InvestNinja.Core.Test
         {
             Indice indice = CreateIndice();
             indice.AddItemByValorCota(DateTime.Now.AddDays(1), 110.0);
-            IItemCotizacao item = indice.Itens.LastOrDefault();
+            ItemIndice item = indice.Itens.LastOrDefault();
             Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
             Assert.Equal(10.0, item.VariacaoFinanceira, 2);
             Assert.Equal(110.0, item.ValorCota, 2);
@@ -64,7 +64,7 @@ namespace InvestNinja.Core.Test
         {
             Indice indice = CreateIndice();
             indice.AddItemByVariacaoCota(DateTime.Now.AddDays(1), 1.1);
-            IItemCotizacao item = indice.Itens.LastOrDefault();
+            ItemIndice item = indice.Itens.LastOrDefault();
             Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
             Assert.Equal(10.0, item.VariacaoFinanceira, 2);
             Assert.Equal(110.0, item.ValorCota, 2);

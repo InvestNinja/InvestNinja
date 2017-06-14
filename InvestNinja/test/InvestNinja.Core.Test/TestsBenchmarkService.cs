@@ -1,4 +1,5 @@
-﻿using InvestNinja.Core.Data;
+﻿using InvestNinja.Core.Converter;
+using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
 using InvestNinja.Core.DTO;
 using InvestNinja.Core.Service;
@@ -20,7 +21,7 @@ namespace InvestNinja.Core.Test
         {
             repositoryCarteira = new MongoRepository<Carteira>();
             repositoryIndice = new MongoRepository<Indice>();
-            benchmarkService = new BenchmarkService(repositoryCarteira, repositoryIndice);
+            benchmarkService = new BenchmarkService(repositoryCarteira, repositoryIndice, new ConvertIndice());
         }
 
         private BenchmarkPesquisaDTO BenchmarkDTO => new BenchmarkPesquisaDTO()

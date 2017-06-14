@@ -6,6 +6,7 @@ using InvestNinja.Core.DTO;
 using InvestNinja.Core.Data;
 using InvestNinja.Core.Utils;
 using System.Linq;
+using InvestNinja.Core.Converter;
 
 namespace InvestNinja.Core.Service
 {
@@ -13,42 +14,32 @@ namespace InvestNinja.Core.Service
     {
         private readonly IRepository<Carteira> repositoryCarteira;
         private readonly IRepository<Indice> repositoryIndice;
+        private readonly IConvertIndice convertIndice;
 
-        public BenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice)
+        public BenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice, IConvertIndice convertIndice)
         {
             this.repositoryCarteira = repositoryCarteira;
             this.repositoryIndice = repositoryIndice;
+            this.convertIndice = convertIndice;
         }
 
         public IList<Indice> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO)
         {
-            IList<Indice> listCotizacao = new List<Indice>();
-            benchmarkDTO.Indices.ForEach(indice => listCotizacao.Add(GetCotizacaoAjustadaPorData(repositoryIndice.GetById(indice), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
-            benchmarkDTO.Carteiras.ForEach(carteira => listCotizacao.Add(GetCotizacaoAjustadaPorData(CarteiraToIndice(repositoryCarteira.GetById(carteira)), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
-            return listCotizacao.Where(cotizacao => cotizacao != null).ToList();
+            IList<Indice> listIndiceBenchmark = new List<Indice>();
+            benchmarkDTO.Indices.ForEach(indice => listIndiceBenchmark.Add(GetCotizacaoAjustadaPorData(repositoryIndice.GetById(indice), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
+            benchmarkDTO.Carteiras.ForEach(carteira => listIndiceBenchmark.Add(GetCotizacaoAjustadaPorData(convertIndice.FromCarteira(repositoryCarteira.GetById(carteira)), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
+            return listIndiceBenchmark.Where(cotizacao => cotizacao != null).ToList();
         }
 
-        private Indice GetCotizacaoAjustadaPorData(Indice cotizacaoCompleta, DateTime dataInicio, DateTime dataFim)
+        private Indice GetCotizacaoAjustadaPorData(Indice indiceCompleto, DateTime dataInicio, DateTime dataFim)
         {
-            var itensFiltered = cotizacaoCompleta?.Itens?.Where(item => item.DataCota >= dataInicio && item.DataCota <= dataFim)?.ToList();
+            var itensFiltered = indiceCompleto?.Itens?.Where(item => item.DataCota >= dataInicio && item.DataCota <= dataFim)?.ToList();
             if (itensFiltered?.Count > 0)
             {
-                Indice indiceAjustado = new Indice(cotizacaoCompleta.Codigo, cotizacaoCompleta.Descricao, 1.0, itensFiltered.First().DataCota);
+                Indice indiceAjustado = new Indice(indiceCompleto.Codigo, indiceCompleto.Descricao, 1.0, itensFiltered.First().DataCota);
                 itensFiltered.RemoveAt(0);
                 itensFiltered.ForEach(item => indiceAjustado.AddItemByVariacaoCota(item.DataCota, item.VariacaoCotaPercentual));
                 return indiceAjustado;
-            }
-            return null;
-        }
-
-        private Indice CarteiraToIndice(Carteira carteira)
-        {
-            if (carteira != null)
-            {
-                Indice indice = new Indice(carteira.Codigo, carteira.Descricao, carteira.ValorCotaInicial, carteira.Itens.First().DataCota);
-                carteira.Itens.RemoveAt(0);
-                carteira.Itens.ForEach(itemCarteira => indice.AddItemByVariacaoCota(itemCarteira.DataCota, itemCarteira.VariacaoCotaPercentual));
-                return indice;
             }
             return null;
         }
