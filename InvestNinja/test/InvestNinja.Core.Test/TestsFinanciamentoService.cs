@@ -8,13 +8,12 @@ namespace InvestNinja.Core.Test
 {
     public class TestsFinanciamentoService
     {
-        private readonly IServiceProvider serviceProvider;
         private readonly IFinanciamentoService financiamentoService;
 
         public TestsFinanciamentoService()
         {
-            serviceProvider = ContainerRegisterAll.RegisterDependenciesReferenced();
-            financiamentoService = serviceProvider.GetService<IFinanciamentoService>();
+            Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
+            financiamentoService = Container.ServiceProvider.GetService<IFinanciamentoService>();
         }
 
         [Fact]

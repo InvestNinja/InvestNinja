@@ -14,20 +14,18 @@ namespace InvestNinja.Core.Service
     {
         private readonly IRepository<Carteira> repositoryCarteira;
         private readonly IRepository<Indice> repositoryIndice;
-        private readonly IConvertIndice convertIndice;
 
-        public BenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice, IConvertIndice convertIndice)
+        public BenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice)
         {
             this.repositoryCarteira = repositoryCarteira;
             this.repositoryIndice = repositoryIndice;
-            this.convertIndice = convertIndice;
         }
 
         public IList<Indice> GetBenchmark(BenchmarkPesquisaDTO benchmarkDTO)
         {
             IList<Indice> listIndiceBenchmark = new List<Indice>();
             benchmarkDTO.Indices.ForEach(indice => listIndiceBenchmark.Add(GetCotizacaoAjustadaPorData(repositoryIndice.GetById(indice), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
-            benchmarkDTO.Carteiras.ForEach(carteira => listIndiceBenchmark.Add(GetCotizacaoAjustadaPorData(convertIndice.FromCarteira(repositoryCarteira.GetById(carteira)), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
+            benchmarkDTO.Carteiras.ForEach(carteira => listIndiceBenchmark.Add(GetCotizacaoAjustadaPorData(repositoryCarteira.GetById(carteira).ToIndice(), benchmarkDTO.DataInicio, benchmarkDTO.DataFim)));
             return listIndiceBenchmark.Where(cotizacao => cotizacao != null).ToList();
         }
 

@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Domain;
+using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Tipos;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ namespace InvestNinja.Core.Test
 {
     public class TestsCarteira
     {
+        public TestsCarteira()
+        {
+            Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
+        }
+
         private Carteira CreateCarteira() => new Carteira("ITest", "Teste", 100.0, DateTime.Now, 1000.0);
 
         [Fact]

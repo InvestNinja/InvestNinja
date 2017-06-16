@@ -24,10 +24,6 @@ namespace InvestNinja.Core.Infrastructure
             return collection.BuildServiceProvider();
         }
 
-        public static IServiceProvider RegisterDependenciesReferenced()
-        {
-            IList<IAssemblyLoader> loaders = new List<IAssemblyLoader>() { new DependencyContextLoader() };
-            return RegisterDependencies(loaders);
-        }
+        public static IServiceProvider RegisterDependenciesReferenced() => RegisterDependencies(new List<IAssemblyLoader>() { new DependencyContextLoader() });
     }
 }

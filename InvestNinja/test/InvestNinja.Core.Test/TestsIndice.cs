@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Domain;
+using InvestNinja.Core.Infrastructure;
 using System;
 using System.Linq;
 using Xunit;
@@ -7,6 +8,11 @@ namespace InvestNinja.Core.Test
 {
     public class TestsIndice
     {
+        public TestsIndice()
+        {
+            Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
+        }
+
         private Indice CreateIndice() => new Indice("ITest", "Teste", 100.0, DateTime.Now);
 
         [Fact]

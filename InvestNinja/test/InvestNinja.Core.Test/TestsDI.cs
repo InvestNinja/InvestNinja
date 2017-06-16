@@ -8,14 +8,12 @@ namespace InvestNinja.Core.Test
 {
     public class TestsDI
     {
-        private readonly IServiceProvider serviceProvider;
-
         public TestsDI()
         {
-            serviceProvider = ContainerRegisterAll.RegisterDependenciesReferenced();
+            Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
         }
 
         [Fact]
-        public void TestDI() => Assert.Equal(typeof(FinancialService), serviceProvider.GetService<IFinancialService>().GetType());
+        public void TestDI() => Assert.Equal(typeof(FinancialService), Container.ServiceProvider.GetService<IFinancialService>().GetType());
     }
 }
