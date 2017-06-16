@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.Domain.Carteira
 {
     public class ItemCarteira : IItemCotizacao
     {

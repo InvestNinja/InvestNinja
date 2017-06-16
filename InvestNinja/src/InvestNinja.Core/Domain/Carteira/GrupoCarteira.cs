@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.Domain.Carteira
 {
     public class GrupoCarteira : IEntity
     {

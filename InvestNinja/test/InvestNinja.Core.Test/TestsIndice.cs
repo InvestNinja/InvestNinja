@@ -75,5 +75,12 @@ namespace InvestNinja.Core.Test
             Assert.Equal(10.0, item.VariacaoFinanceira, 2);
             Assert.Equal(110.0, item.ValorCota, 2);
         }
+
+        [Fact]
+        public void TesteCriacaoDeItemComDataMenorIgualAoUltimoItem()
+        {
+            Indice indice = CreateIndice();
+            Assert.Throws<Exception>(() => indice.AddItemByVariacaoCota(DateTime.Now, 1.1));
+        }
     }
 }

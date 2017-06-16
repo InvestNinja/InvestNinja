@@ -6,7 +6,7 @@ using InvestNinja.Core.DTO;
 using InvestNinja.Core.Data;
 using InvestNinja.Core.Utils;
 using System.Linq;
-using InvestNinja.Core.Converter;
+using InvestNinja.Core.Domain.Carteira;
 
 namespace InvestNinja.Core.Service
 {

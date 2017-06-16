@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using InvestNinja.Core.Domain;
 using InvestNinja.Core.Data;
 using InvestNinja.Data;
+using InvestNinja.Core.Domain.Carteira;
 
 namespace InvestNinja.Web.Controllers
 {

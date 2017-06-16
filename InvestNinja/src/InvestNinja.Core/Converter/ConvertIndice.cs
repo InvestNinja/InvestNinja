@@ -1,4 +1,5 @@
 ﻿using InvestNinja.Core.Domain;
+using InvestNinja.Core.Domain.Carteira;
 using InvestNinja.Core.Utils;
 using System.Linq;
 

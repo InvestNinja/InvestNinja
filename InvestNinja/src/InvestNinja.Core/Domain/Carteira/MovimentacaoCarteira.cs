@@ -1,6 +1,6 @@
 ﻿using InvestNinja.Core.Tipos;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.Domain.Carteira
 {
     public class MovimentacaoCarteira
     {

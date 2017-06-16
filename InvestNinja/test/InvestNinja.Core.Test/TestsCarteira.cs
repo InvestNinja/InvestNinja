@@ -1,4 +1,4 @@
-﻿using InvestNinja.Core.Domain;
+﻿using InvestNinja.Core.Domain.Carteira;
 using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Tipos;
 using System;
@@ -224,6 +224,22 @@ namespace InvestNinja.Core.Test
             Assert.Equal(1.1, item.VariacaoCotaPercentual, 2);
             Assert.Equal(100.0, item.VariacaoFinanceira, 2);
             Assert.Equal(110.0, item.ValorCota, 2);
+        }
+
+        [Fact]
+        public void TesteCriacaoDeItemComDataMenorIgualAoUltimoItem()
+        {
+            Carteira Carteira = CreateCarteira();
+            var list = new List<MovimentacaoCarteira>()
+            {
+                new MovimentacaoCarteira()
+                {
+                    Valor = 100.0,
+                    Descricao = "Resgate",
+                    Tipo = TipoMovimentacao.Resgate
+                }
+            };
+            Assert.Throws<Exception>(() => Carteira.AddItem(DateTime.Now, 1000.0, list));
         }
     }
 }

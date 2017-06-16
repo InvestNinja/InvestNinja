@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace InvestNinja.Core.Domain
+namespace InvestNinja.Core.Domain.Carteira
 {
     public class Carteira : IEntity, ICotizacao<ItemCarteira>
     {
@@ -56,9 +56,16 @@ namespace InvestNinja.Core.Domain
 
         public void AddItem(DateTime dataCota, double saldo, IList<MovimentacaoCarteira> movimentacoes)
         {
+            ValidateNewItemDate(dataCota);
             ItemCarteira item = CreateItem(dataCota, saldo, GetValorMovimentacoes(movimentacoes));
             item.Movimentacoes = movimentacoes;
             Itens.Add(item);
+        }
+
+        private void ValidateNewItemDate(DateTime dataCota)
+        {
+            if (dataCota.Date <= Last.DataCota.Date)
+                throw new Exception("Item adicionado com data menor ou igual à data do último item.");
         }
 
         private double GetValorMovimentacoes(IList<MovimentacaoCarteira> movimentacoes)

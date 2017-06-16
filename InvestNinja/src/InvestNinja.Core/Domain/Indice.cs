@@ -45,6 +45,7 @@ namespace InvestNinja.Core.Domain
 
         public void AddItemByValorCota(DateTime dataCota, double valorCota)
         {
+            ValidateNewItemDate(dataCota);
             ItemIndice item = new ItemIndice()
             {
                 DataCota = dataCota,
@@ -53,6 +54,12 @@ namespace InvestNinja.Core.Domain
                 VariacaoFinanceira = valorCota - this.ValorCotaAtual
             };
             Itens.Add(item);
+        }
+
+        private void ValidateNewItemDate(DateTime dataCota)
+        {
+            if (dataCota.Date <= Last.DataCota.Date)
+                throw new Exception("Item adicionado com data menor ou igual à data do último item.");
         }
 
         public void AddItemByVariacaoCota(DateTime dataCota, double variacaoCotaPercentual) => AddItemByValorCota(dataCota, Last.ValorCota * variacaoCotaPercentual);

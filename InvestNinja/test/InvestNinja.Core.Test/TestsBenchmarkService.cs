@@ -1,13 +1,12 @@
-﻿using InvestNinja.Core.Converter;
-using InvestNinja.Core.Data;
+﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
+using InvestNinja.Core.Domain.Carteira;
 using InvestNinja.Core.DTO;
 using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Service;
 using InvestNinja.Data;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace InvestNinja.Core.Test

@@ -1,5 +1,6 @@
 ﻿using InvestNinja.Core.Converter;
 using InvestNinja.Core.Domain;
+using InvestNinja.Core.Domain.Carteira;
 using InvestNinja.Core.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
