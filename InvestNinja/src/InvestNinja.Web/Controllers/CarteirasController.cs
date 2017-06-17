@@ -62,6 +62,14 @@ namespace InvestNinja.Web.Controllers
         [HttpPost]
         public void Post([FromBody]CarteiraInitializerDTO carteiraInitializer) => repository.Insert(new Carteira(carteiraInitializer.Codigo, carteiraInitializer.Descricao, carteiraInitializer.ValorCotaInicial, carteiraInitializer.DataCota, carteiraInitializer.Saldo));
 
+        [HttpPut("{codigo}/{descricao}")]
+        public void Put(string descricao, string codigo)
+        {
+            Carteira carteira = repository.GetById(codigo);
+            carteira.Descricao = descricao;
+            repository.Update(carteira);
+        }
+
         [HttpPatch("{codigo}")]
         public void Patch([FromBody]ItemCarteira itemCarteira, string codigo)
         {
