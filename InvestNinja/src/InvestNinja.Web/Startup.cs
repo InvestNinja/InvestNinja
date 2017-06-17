@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using InvestNinja.Core.Infrastructure;
+using InvestNinja.Core.Utils;
 
 namespace InvestNinja.Web
 {
@@ -32,7 +31,7 @@ namespace InvestNinja.Web
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -48,6 +47,11 @@ namespace InvestNinja.Web
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+            services.AddRange(ContainerRegisterAll.RegisterDependenciesReferenced());
+
+            Container.Initialize(services);
+            return Container.ServiceProvider;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

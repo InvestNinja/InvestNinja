@@ -10,5 +10,7 @@ namespace InvestNinja.Core.Utils
             foreach(var item in list)
                 action.Invoke(item);
         }
+
+        public static void AddRange<T>(this IList<T> list, IList<T> listAdd) => listAdd.ForEach<T>(item => list.Add(item));
     }
 }

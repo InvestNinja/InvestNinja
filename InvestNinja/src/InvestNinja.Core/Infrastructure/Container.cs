@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace InvestNinja.Core.Infrastructure
 {
@@ -17,10 +18,10 @@ namespace InvestNinja.Core.Infrastructure
             }
         }
 
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(IServiceCollection services)
         {
             if (_serviceProvider == null)
-                _serviceProvider = serviceProvider;
+                _serviceProvider = services.BuildServiceProvider();
         }
     }
 }

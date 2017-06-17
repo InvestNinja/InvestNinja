@@ -8,7 +8,7 @@ namespace InvestNinja.Core.Infrastructure
 {
     public class ContainerRegisterAll
     {
-        public static IServiceProvider RegisterDependencies(IList<IAssemblyLoader> loaders)
+        public static IServiceCollection RegisterDependencies(IList<IAssemblyLoader> loaders)
         {
             IServiceCollection collection = new ServiceCollection();
             AppTypeFinder typeFinder = new AppTypeFinder(loaders);
@@ -21,9 +21,9 @@ namespace InvestNinja.Core.Infrastructure
             foreach (var dependencyRegistrar in drInstances)
                 dependencyRegistrar.Register(collection);
 
-            return collection.BuildServiceProvider();
+            return collection;
         }
 
-        public static IServiceProvider RegisterDependenciesReferenced() => RegisterDependencies(new List<IAssemblyLoader>() { new DependencyContextLoader() });
+        public static IServiceCollection RegisterDependenciesReferenced() => RegisterDependencies(new List<IAssemblyLoader>() { new DependencyContextLoader() });
     }
 }
