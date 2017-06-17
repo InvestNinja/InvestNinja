@@ -58,7 +58,7 @@ namespace InvestNinja.Core.Domain
 
         private void ValidateNewItemDate(DateTime dataCota)
         {
-            if (dataCota.Date <= Last.DataCota.Date)
+            if (dataCota.Date <= Last.DataCota)
                 throw new Exception("Item adicionado com data menor ou igual à data do último item.");
         }
 

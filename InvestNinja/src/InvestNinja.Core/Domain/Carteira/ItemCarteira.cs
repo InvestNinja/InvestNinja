@@ -10,7 +10,18 @@ namespace InvestNinja.Core.Domain.Carteira
             Movimentacoes = new List<MovimentacaoCarteira>();
         }
 
-        public DateTime DataCota { get; set; }
+        private DateTime dataCota;
+        public DateTime DataCota
+        {
+            get
+            {
+                return dataCota;
+            }
+            set
+            {
+                dataCota = value.Date;
+            }
+        }
 
         public double ValorMovimentacoes { get; set; }
 

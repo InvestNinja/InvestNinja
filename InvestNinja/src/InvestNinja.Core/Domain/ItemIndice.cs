@@ -4,7 +4,18 @@ namespace InvestNinja.Core.Domain
 {
     public class ItemIndice : IItemCotizacao
     {
-        public DateTime DataCota { get; set; }
+        private DateTime dataCota;
+        public DateTime DataCota
+        {
+            get
+            {
+                return dataCota;
+            }
+            set
+            {
+                dataCota = value.Date;
+            }
+        }
 
         public double VariacaoCotaPercentual { get; set; }
 

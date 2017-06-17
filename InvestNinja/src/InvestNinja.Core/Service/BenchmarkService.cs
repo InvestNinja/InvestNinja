@@ -31,7 +31,7 @@ namespace InvestNinja.Core.Service
 
         private Indice GetCotizacaoAjustadaPorData(Indice indiceCompleto, DateTime dataInicio, DateTime dataFim)
         {
-            var itensFiltered = indiceCompleto?.Itens?.Where(item => item.DataCota >= dataInicio && item.DataCota <= dataFim)?.ToList();
+            var itensFiltered = indiceCompleto?.Itens?.Where(item => item.DataCota >= dataInicio.Date && item.DataCota <= dataFim.Date)?.ToList();
             if (itensFiltered?.Count > 0)
             {
                 Indice indiceAjustado = new Indice(indiceCompleto.Codigo, indiceCompleto.Descricao, 1.0, itensFiltered.First().DataCota);
