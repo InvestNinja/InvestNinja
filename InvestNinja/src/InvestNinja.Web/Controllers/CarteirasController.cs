@@ -77,5 +77,8 @@ namespace InvestNinja.Web.Controllers
             carteira.AddItem(itemCarteira.DataCota, itemCarteira.Saldo, itemCarteira.Movimentacoes);
             repository.Update(carteira);
         }
+
+        [HttpDelete("{codigo}")]
+        public void Delete(string codigo) => repository.Delete(repository.GetById(codigo));
     }
 }

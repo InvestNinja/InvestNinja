@@ -54,5 +54,8 @@ namespace InvestNinja.Web.Controllers
                 indice.AddItemByVariacaoCota(itemIndice.DataCota, itemIndice.VariacaoCotaPercentual);
             repository.Update(indice);
         }
+
+        [HttpDelete("{codigo}")]
+        public void Delete(string codigo) => repository.Delete(repository.GetById(codigo));
     }
 }
