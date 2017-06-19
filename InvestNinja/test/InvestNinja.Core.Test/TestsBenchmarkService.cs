@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InvestNinja.Core.Test
 {
@@ -17,14 +18,14 @@ namespace InvestNinja.Core.Test
         private readonly IRepository<Indice> repositoryIndice;
         private readonly IBenchmarkService benchmarkService;
 
-        public TestsBenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice)
+        public TestsBenchmarkService()
         {
             Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
-            this.repositoryCarteira = repositoryCarteira;
-            this.repositoryIndice = repositoryIndice;
+            repositoryCarteira = Container.ServiceProvider.GetService<IRepository<Carteira>>();
+            repositoryIndice = Container.ServiceProvider.GetService<IRepository<Indice>>();
             CreateCarteira();
             CreateIndice();
-            benchmarkService = new BenchmarkService(repositoryCarteira, repositoryIndice);
+            benchmarkService = Container.ServiceProvider.GetService<IBenchmarkService>();
         }
 
         private void CreateCarteira()
