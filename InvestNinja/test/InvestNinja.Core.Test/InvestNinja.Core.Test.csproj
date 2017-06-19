@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\InvestNinja.Core\InvestNinja.Core.csproj" />
-    <ProjectReference Include="..\..\src\InvestNinja.Data\InvestNinja.Data.csproj" />
     <ProjectReference Include="..\..\src\InvestNinja.ClassFinder\InvestNinja.ClassFinder.csproj" />
   </ItemGroup>
 
