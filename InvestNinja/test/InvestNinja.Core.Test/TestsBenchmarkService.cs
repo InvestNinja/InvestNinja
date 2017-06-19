@@ -4,7 +4,6 @@ using InvestNinja.Core.Domain.Carteira;
 using InvestNinja.Core.DTO;
 using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Service;
-using InvestNinja.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

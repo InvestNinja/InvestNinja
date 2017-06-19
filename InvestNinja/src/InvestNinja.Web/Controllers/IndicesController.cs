@@ -1,7 +1,6 @@
 ﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
 using InvestNinja.Core.DTO;
-using InvestNinja.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

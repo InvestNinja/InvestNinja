@@ -1,14 +1,11 @@
-﻿using InvestNinja.Core.Data;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace InvestNinja.Data
+namespace InvestNinja.Core.Data
 {
     public class MongoRepository<T> : IRepository<T> where T : IEntity
     {
@@ -41,10 +38,6 @@ namespace InvestNinja.Data
 
         private IMongoCollection<T> Collection => database.GetCollection<T>(typeof(T).Name);
 
-        private object GetIdValue(T entity)
-        {
-            var property = typeof(T).GetRuntimeProperties().Where(prop => prop.GetCustomAttribute(typeof(BsonIdAttribute)) != null).FirstOrDefault();
-            return property.GetValue(entity);
-        }
+        private object GetIdValue(T entity) => typeof(T).GetRuntimeProperties().Where(prop => prop.GetCustomAttribute(typeof(BsonIdAttribute)) != null).FirstOrDefault().GetValue(entity);
     }
 }

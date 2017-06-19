@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using InvestNinja.Core.Service;
 using InvestNinja.Core.Converter;
+using InvestNinja.Core.Data;
 
 namespace InvestNinja.Core.Infrastructure
 {
@@ -16,6 +17,7 @@ namespace InvestNinja.Core.Infrastructure
             collection.AddTransient<IBolsaValoresService, BolsaValoresService>();
             collection.AddTransient<IBenchmarkService, BenchmarkService>();
             collection.AddTransient<IConvertIndice, ConvertIndice>();
+            collection.AddTransient(typeof(IRepository<>), typeof(MongoRepository<>));
         }
     }
 }
