@@ -17,11 +17,11 @@ namespace InvestNinja.Core.Test
         private readonly IRepository<Indice> repositoryIndice;
         private readonly IBenchmarkService benchmarkService;
 
-        public TestsBenchmarkService()
+        public TestsBenchmarkService(IRepository<Carteira> repositoryCarteira, IRepository<Indice> repositoryIndice)
         {
             Container.Initialize(ContainerRegisterAll.RegisterDependenciesReferenced());
-            repositoryCarteira = new MongoRepository<Carteira>();
-            repositoryIndice = new MongoRepository<Indice>();
+            this.repositoryCarteira = repositoryCarteira;
+            this.repositoryIndice = repositoryIndice;
             CreateCarteira();
             CreateIndice();
             benchmarkService = new BenchmarkService(repositoryCarteira, repositoryIndice);

@@ -11,9 +11,9 @@ namespace InvestNinja.Web.Controllers
     {
         IRepository<GrupoCarteira> repository;
 
-        public GruposCarteiraController()
+        public GruposCarteiraController(IRepository<GrupoCarteira> repository)
         {
-            repository = new MongoRepository<GrupoCarteira>();
+            this.repository = repository;
         }
 
         [HttpGet("payload/teste")]

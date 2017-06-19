@@ -13,9 +13,9 @@ namespace InvestNinja.Web.Controllers
     {
         IRepository<Indice> repository;
 
-        public IndicesController()
+        public IndicesController(IRepository<Indice> repository)
         {
-            repository = new MongoRepository<Indice>();
+            this.repository = repository;
         }
 
         [HttpGet("payload/teste")]

@@ -13,11 +13,13 @@ namespace InvestNinja.Web.Controllers
     [Route("api/[controller]")]
     public class CarteirasController : Controller
     {
-        IRepository<Carteira> repository;
+        IRepository<Carteira> repositoryCarteira;
+        IRepository<GrupoCarteira> repositoryGrupoCarteira;
 
-        public CarteirasController()
+        public CarteirasController(IRepository<Carteira> repositoryCarteira, IRepository<GrupoCarteira> repositoryGrupoCarteira)
         {
-            repository = new MongoRepository<Carteira>();
+            this.repositoryCarteira = repositoryCarteira;
+            this.repositoryGrupoCarteira = repositoryGrupoCarteira;
         }
 
         [HttpGet("payload/teste")]
@@ -44,40 +46,40 @@ namespace InvestNinja.Web.Controllers
         }
 
         [HttpGet]
-        public IList<Carteira> GetAll() => repository.GetAll().ToList();
+        public IList<Carteira> GetAll() => repositoryCarteira.GetAll().ToList();
 
         [HttpGet("grupo/{codigoGrupoCarteira}")]
         public IList<Carteira> GetByGrupoCarteira(string codigoGrupoCarteira)
         {
             IList<Carteira> carteiras = new List<Carteira>();
-            GrupoCarteira grupoCarteira = new MongoRepository<GrupoCarteira>().GetById(codigoGrupoCarteira);
-            grupoCarteira.Carteiras.ForEach(codigoCarteira => carteiras.Add(repository.GetById(codigoCarteira)));
+            GrupoCarteira grupoCarteira = repositoryGrupoCarteira.GetById(codigoGrupoCarteira);
+            grupoCarteira.Carteiras.ForEach(codigoCarteira => carteiras.Add(repositoryCarteira.GetById(codigoCarteira)));
             return carteiras.ToList();
         }
 
         [HttpGet("{codigo}")]
-        public Carteira Get(string codigo) => repository.GetById(codigo);
+        public Carteira Get(string codigo) => repositoryCarteira.GetById(codigo);
 
         [HttpPost]
-        public void Post([FromBody]CarteiraInitializerDTO carteiraInitializer) => repository.Insert(new Carteira(carteiraInitializer.Codigo, carteiraInitializer.Descricao, carteiraInitializer.ValorCotaInicial, carteiraInitializer.DataCota, carteiraInitializer.Saldo));
+        public void Post([FromBody]CarteiraInitializerDTO carteiraInitializer) => repositoryCarteira.Insert(new Carteira(carteiraInitializer.Codigo, carteiraInitializer.Descricao, carteiraInitializer.ValorCotaInicial, carteiraInitializer.DataCota, carteiraInitializer.Saldo));
 
         [HttpPut("{codigo}/{descricao}")]
         public void Put(string descricao, string codigo)
         {
-            Carteira carteira = repository.GetById(codigo);
+            Carteira carteira = repositoryCarteira.GetById(codigo);
             carteira.Descricao = descricao;
-            repository.Update(carteira);
+            repositoryCarteira.Update(carteira);
         }
 
         [HttpPatch("{codigo}")]
         public void Patch([FromBody]ItemCarteira itemCarteira, string codigo)
         {
-            Carteira carteira = repository.GetById(codigo);
+            Carteira carteira = repositoryCarteira.GetById(codigo);
             carteira.AddItem(itemCarteira.DataCota, itemCarteira.Saldo, itemCarteira.Movimentacoes);
-            repository.Update(carteira);
+            repositoryCarteira.Update(carteira);
         }
 
         [HttpDelete("{codigo}")]
-        public void Delete(string codigo) => repository.Delete(repository.GetById(codigo));
+        public void Delete(string codigo) => repositoryCarteira.Delete(repositoryCarteira.GetById(codigo));
     }
 }
