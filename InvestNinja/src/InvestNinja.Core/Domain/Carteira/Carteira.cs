@@ -108,5 +108,9 @@ namespace InvestNinja.Core.Domain.Carteira
         public double QtdCotasAtual => Last.QtdCotasAtual;
 
         public double Saldo => Last.Saldo;
+
+        public double SaldoInicial => this.Itens.FirstOrDefault().Saldo;
+
+        public double QtdCotasInicial => this.Itens.FirstOrDefault().QtdCotasAtual;
     }
 }
