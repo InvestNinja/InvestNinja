@@ -6,6 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using InvestNinja.Core.Infrastructure;
 using InvestNinja.Core.Utils;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace InvestNinja.Web
 {
@@ -46,7 +50,19 @@ namespace InvestNinja.Web
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddMvc();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("User",
+                                  policy => policy.RequireClaim("roles", "User"));
+            });
+
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             services.AddRange(ContainerRegisterAll.RegisterDependenciesReferenced());
 
@@ -65,6 +81,37 @@ namespace InvestNinja.Web
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();
+
+            //var tokenSecretKey = Encoding.UTF8.GetBytes(Configuration["TokenSecretKey"]);
+            var tokenSecretKey = Encoding.UTF8.GetBytes("abcdefghijklmnopqrs");
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // Token signature will be verified using a private key.
+                ValidateIssuerSigningKey = true,
+                RequireSignedTokens = true,
+                IssuerSigningKey = new SymmetricSecurityKey(tokenSecretKey),
+
+                // Token will only be valid if contains "accelist.com" for "iss" claim.
+                ValidateIssuer = true,
+                ValidIssuer = "http://www.investninja.com",
+
+                // Token will only be valid if contains "accelist.com" for "aud" claim.
+                ValidateAudience = true,
+                ValidAudience = "investninja.com",
+
+                // Token will only be valid if not expired yet, with 5 minutes clock skew.
+                ValidateLifetime = true,
+                RequireExpirationTime = true,
+                ClockSkew = new TimeSpan(0, 5, 0),
+
+                ValidateActor = false,
+            };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                TokenValidationParameters = tokenValidationParameters,
+            });
 
             app.UseMvc();
         }

@@ -1,6 +1,7 @@
 ﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
 using InvestNinja.Core.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace InvestNinja.Web.Controllers
             this.repository = repository;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("payload/teste")]
         public Indice TesteCarteira()
         {
