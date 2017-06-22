@@ -20,8 +20,7 @@ namespace InvestNinja.Web.Controllers
         public string Post([FromBody]Usuario usuario)
         {
             //criar usuário no banco de dados
-            //return Jose.JWT.Encode(new AuthorizationToken("ninja"), Encoding.UTF8.GetBytes("abcdefghijklmnopqrs"), Jose.JwsAlgorithm.HS256);
-            return "";
+            return Jose.JWT.Encode(CreateToken(usuario), Encoding.UTF8.GetBytes("abcdefghijklmnopqrs"), Jose.JwsAlgorithm.HS256);
         }
         
         [HttpPost("login")]
@@ -29,5 +28,7 @@ namespace InvestNinja.Web.Controllers
         {
             var token = HttpContext.Request.DecodeUserNameJWT("abcdefghijklmnopqrs");
         }
+
+        private AuthorizationToken CreateToken(Usuario usuario) => new AuthorizationToken("http://www.investninja.com", "investninja.com", "InvestNinja", usuario.UserName, null);
     }
 }
