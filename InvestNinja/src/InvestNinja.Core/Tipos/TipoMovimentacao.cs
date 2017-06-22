@@ -1,4 +1,16 @@
-﻿namespace InvestNinja.Core.Tipos
+﻿using System.ComponentModel;
+
+namespace InvestNinja.Core.Tipos
 {
-    public enum TipoMovimentacao { Aplicacao, Resgate, Rendimento, Amortizacao };
+    public enum TipoMovimentacao
+    {
+        [Description("Aplicação")]
+        Aplicacao,
+        [Description("Resgate")]
+        Resgate,
+        [Description("Rendimento")]
+        Rendimento,
+        [Description("Amortização")]
+        Amortizacao
+    };
 }

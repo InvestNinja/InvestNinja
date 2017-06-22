@@ -1,5 +1,6 @@
 ﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Tipos;
+using InvestNinja.Core.Utils;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -57,9 +58,16 @@ namespace InvestNinja.Core.Domain.Carteira
         public void AddItem(DateTime dataCota, double saldo, IList<MovimentacaoCarteira> movimentacoes)
         {
             ValidateNewItemDate(dataCota);
+            SetOrdemMovimentacao(movimentacoes);
             ItemCarteira item = CreateItem(dataCota, saldo, GetValorMovimentacoes(movimentacoes));
             item.Movimentacoes = movimentacoes;
             Itens.Add(item);
+        }
+
+        private void SetOrdemMovimentacao(IList<MovimentacaoCarteira> movimentacoes)
+        {
+            int i = movimentacoes.Max(movimentacao => movimentacao.Ordem);
+            movimentacoes.Where(movimentacao => movimentacao.Ordem <= 0).ForEach(movimentacao => movimentacao.Ordem = ++i);
         }
 
         private void ValidateNewItemDate(DateTime dataCota)
@@ -95,7 +103,9 @@ namespace InvestNinja.Core.Domain.Carteira
             };
         }
 
-        private ItemCarteira Last => this.Itens.LastOrDefault() == null ? new ItemCarteira() : this.Itens.Last();
+        private ItemCarteira Last => this.Itens.LastOrDefault();
+
+        private ItemCarteira First => this.Itens.FirstOrDefault();
 
         public double ValorCotaAtual => Last.ValorCota;
 
@@ -109,8 +119,8 @@ namespace InvestNinja.Core.Domain.Carteira
 
         public double Saldo => Last.Saldo;
 
-        public double SaldoInicial => this.Itens.FirstOrDefault().Saldo;
+        public double SaldoInicial => First.Saldo;
 
-        public double QtdCotasInicial => this.Itens.FirstOrDefault().QtdCotasAtual;
+        public double QtdCotasInicial => First.QtdCotasAtual;
     }
 }
