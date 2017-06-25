@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using InvestNinja.Core.Domain;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +18,8 @@ namespace InvestNinja.Web.Controllers
             //criar usuário no banco de dados
             return Jose.JWT.Encode(CreateToken(usuario), Encoding.UTF8.GetBytes("abcdefghijklmnopqrs"), Jose.JwsAlgorithm.HS256);
         }
-        
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public void Login([FromBody]Usuario usuario)
         {

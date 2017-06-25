@@ -5,11 +5,11 @@ namespace InvestNinja.Core.Domain
 {
     public class AuthorizationToken
     {
-        public string Iss { get; private set; } // ;
+        public string Iss { get; private set; }
 
-        public string Aud { get; private set; } // ;
+        public string Aud { get; private set; }
 
-        public string Sub { get; private set; } // ;
+        public string Sub { get; private set; }
 
         public IList<string> Roles { get; private set; }
 
