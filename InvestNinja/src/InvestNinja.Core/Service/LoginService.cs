@@ -1,8 +1,6 @@
 ﻿using InvestNinja.Core.Data;
 using InvestNinja.Core.Domain;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace InvestNinja.Core.Service
 {
